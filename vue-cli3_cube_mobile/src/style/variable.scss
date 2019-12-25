@@ -1,0 +1,73 @@
+/*设计稿宽度*/
+$design-width: 750;
+/*dpr的基准*/
+$design-dpr: 2;
+/*将页面分为*/
+$blocks: 10;
+/*适配的最小宽度*/
+$min-device-width: 320px;
+/*适配的最大宽度*/
+$max-device-width: 540px;
+
+// scss函数
+@import "./function.scss";
+
+/* html根元素的font-size定义，简单地将页面分为$blocks块，方便计算 */
+@mixin root-font-size() {
+  body {
+    @include auto();
+    @include container-min-width();
+    @include container-max-width();
+  }
+
+  font-size: 20vw;
+
+  /* 最小宽度定义 */
+  @media screen and (max-width: $min-device-width) {
+    font-size: $min-device-width / $blocks * $design-dpr;
+  }
+
+  /* 最大宽度定义 */
+  @media screen and (min-width: $max-device-width) {
+    font-size: $max-device-width / $blocks * $design-dpr;
+  }
+}
+
+/*  快级元素左右居中 */
+@mixin auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* 设置容器拉伸的最小宽度 */
+@mixin container-min-width() {
+  min-width: $min-device-width;
+}
+
+/* 设置容器拉伸的最大宽度 */
+@mixin container-max-width() {
+  max-width: $max-device-width;
+}
+
+/* ===设置字体大小，
+  不使用rem单位， 根据dpr值分段调整
+*/
+@mixin font-size($fontSize) {
+  font-size: $fontSize / $design-dpr;
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    font-size: $fontSize / $design-dpr * 2;
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+    font-size: $fontSize / $design-dpr * 3;
+  }
+}
+
+
+/*
+全局变量
+*/
+$header-height: px2rem(50);
+$footer-height: px2rem(50);
+$blue-color: blue;

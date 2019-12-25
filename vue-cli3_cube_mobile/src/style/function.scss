@@ -1,0 +1,27 @@
+/*
+    vw与px对应关系，100vw为视窗宽度，$vw即为$px对应占多宽
+
+        $px                    $vw
+    -------------    ===    ------------
+    $design-width              100vw
+*/
+
+/*px转换vm*/
+@function px2vw($px) {
+  @return ($px / $design-width) * 100vw;
+}
+
+/*vw转换px*/
+@function vw2px($vw) {
+  @return #{($vw / 100) * $design-width}px;
+}
+
+/* 单位px转化为rem */
+@function px2rem($px) {
+  @return #{$px / $design-width * $blocks}rem;
+}
+
+/* 单位rem转化为px，可用于根据rem单位快速计算原px */
+@function rem2px($rem) {
+  @return #{$rem * $design-width / $blocks}px;
+}
