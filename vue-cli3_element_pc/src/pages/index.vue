@@ -1,15 +1,15 @@
 <template>
-  <div class="box">
-    <m-header class="header"></m-header>
-    <section class="container clear">
-      <m-nav class="nav-box"></m-nav>
-      <div>
+  <div class="app-box">
+    <m-header class="app-header"></m-header>
+    <section class="app-section clear">
+      <m-nav class="app-nav-box"></m-nav>
+      <div class="app-container">
         <keep-alive :include="include">
           <router-view/>
         </keep-alive>
       </div>
     </section>
-    <m-footer class="footer"></m-footer>
+    <m-footer class="app-footer"></m-footer>
   </div>
 </template>
 
@@ -37,12 +37,12 @@
 </script>
 
 <style scoped lang="scss">
-  .box {
+  .app-box {
     height: 100%;
     position: relative;
     overflow: hidden;
 
-    .header, .footer {
+    .app-header, .app-header {
       position: absolute;
       left: 0;
       right: 0;
@@ -57,19 +57,20 @@
       bottom: 0;
     }
 
-    > section {
+    > .app-section {
       height: 100%;
       overflow: hidden;
       padding-top: $header-height;
       padding-bottom: $footer-height;
 
-      > .nav-box {
+      > .app-nav-box {
         float: left;
         width: 18%;
         height: 100%;
+        overflow-y: auto;
       }
 
-      > div {
+      > .app-container {
         height: 100%;
         overflow-y: auto;
         margin-left: 18%;

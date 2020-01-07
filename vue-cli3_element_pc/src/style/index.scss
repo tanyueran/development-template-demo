@@ -47,6 +47,14 @@ img {
   border-radius: 2px;
 }
 
+p, h1, h2, h3, h4 {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+------提供的公用类
+*/
 .text-center {
   text-align: center !important;
 }
@@ -75,9 +83,4 @@ img {
   content: "";
   display: table;
   clear: both;
-}
-
-p, h1, h2, h3, h4 {
-  margin: 0;
-  padding: 0;
 }
