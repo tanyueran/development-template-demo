@@ -5,11 +5,19 @@
  */
 import {lazy} from 'react'
 
+const loginPage = lazy(() => import('../pages/login/index.js'));
+const notFoundPage = lazy(() => import('../pages/notFound/index.js'));
+
 export default [
+  {
+    path: '/',
+    exact: true,
+    component: loginPage,
+  },
   {
     path: '/login',
     exact: true,
-    component: lazy(() => import('../pages/login/index.js')),
+    component: loginPage,
   },
   {
     path: '/register',
@@ -17,7 +25,7 @@ export default [
     component: lazy(() => import('../pages/register/index.js')),
   },
   {
-    path: '/',
+    path: '/app',
     component: lazy(() => import('../pages/app/home/index.js')),
     children: [
       {
@@ -40,6 +48,12 @@ export default [
         exact: true,
         component: lazy(() => import('../pages/app/home/page4/page4.js')),
       },
+      {
+        component: notFoundPage,
+      },
     ]
   },
+  {
+    component: notFoundPage,
+  }
 ]

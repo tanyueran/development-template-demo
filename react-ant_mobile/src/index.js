@@ -5,6 +5,8 @@ import {Provider} from 'react-redux';
 import App from './App';
 import store from './store/index.js'
 
+import * as serviceWorker from './serviceWorker';
+
 import './ant-ui.js'
 import './style/index.scss'
 
@@ -14,3 +16,6 @@ render(
   </Provider>,
   document.getElementById('root')
 );
+
+// 不植入pwa，pwa必须HTTPS
+serviceWorker.unregister();

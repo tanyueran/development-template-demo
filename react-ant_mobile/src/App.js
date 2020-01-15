@@ -13,8 +13,7 @@ function App() {
         <Router>
           <Switch>
             {
-              routes.map((route, i) =>
-                <Route exact={route.exact} key={i} path={route.path} render={
+              routes.map((route, i) => <Route exact={route.exact} key={i} path={route.path} render={
                   props =>
                     <route.component {...props} routes={route.children}/>}
                 />
