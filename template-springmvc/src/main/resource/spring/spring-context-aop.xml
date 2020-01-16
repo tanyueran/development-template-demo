@@ -16,23 +16,4 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-  <!--开启基础注解扫描，扫描controller-->
-  <context:component-scan base-package="com.github.tanyueran.controller"/>
-  <context:component-scan base-package="com.github.tanyueran.config"/>
-
-  <!--开启mvc注解扫描-->
-  <mvc:annotation-driven>
-    <mvc:message-converters register-defaults="true">
-      <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-        <property name="supportedMediaTypes">
-          <list>
-            <!--此处注意ie下可能导致application/json下载-->
-            <value>text/html;charset=UTF-8</value>
-            <value>application/json;charset=UTF-8</value>
-            <value>application/xml;charset=UTF-8</value>
-          </list>
-        </property>
-      </bean>
-    </mvc:message-converters>
-  </mvc:annotation-driven>
 </beans>
