@@ -13,7 +13,7 @@
   <!--mapper-->
   <mappers>
     <mapper resource="mapper/redPacket.xml"/>
-    <!--<mapper resource="mapper/redPacketDetail.xml"/>-->
+    <mapper resource="mapper/redPacketDetail.xml"/>
     <mapper resource="mapper/userMapper.xml"/>
   </mappers>
 </configuration>

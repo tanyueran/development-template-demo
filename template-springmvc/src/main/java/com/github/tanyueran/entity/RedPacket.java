@@ -42,7 +42,7 @@ public class RedPacket {
 
   @Override
   public String toString() {
-    return "RedPacket{" +
+    return "RedPacketMapper{" +
       "id='" + id + '\'' +
       ", user_id='" + user_id + '\'' +
       ", totalNum=" + totalNum +
