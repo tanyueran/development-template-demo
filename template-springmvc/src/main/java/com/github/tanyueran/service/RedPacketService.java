@@ -1,15 +1,19 @@
 package com.github.tanyueran.service;
 
 import com.github.tanyueran.entity.RedPacket;
-import com.github.tanyueran.mapper.RedPacketMapper;
+import com.github.tanyueran.entity.RedPacketDetail;
+import com.github.tanyueran.exception.NoAmountException;
 
+import java.util.List;
+
+// 抢红包业务模块
 public interface RedPacketService {
-  // 添加红包
-  void addRedPacket(RedPacket redPacket);
+  // 发红包
+  void sendRedPacket(RedPacket redPacket);
 
-  // 根据id查询红包数据
-  RedPacketMapper getRedPacketById(String id);
+  // 抢红包
+  RedPacketDetail gainRedPacket(RedPacketDetail redPacketDetail) throws Exception;
 
-  // 更新红包剩余数量
-  void setRedPacketRestNum(Integer num);
+  // 根据红包id查询红包领取情况
+  List<RedPacketDetail> selectRedPacketList(String redPacketId);
 }

@@ -3,7 +3,6 @@ package com.github.tanyueran.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 // 红包详情
@@ -12,13 +11,15 @@ public class RedPacketDetail {
   @NotEmpty(message = "红包详情id不可为空")
   private String id;
 
-  //  红包id
+  // 红包id
   @NotEmpty(message = "所属红包的id不可为空")
   private String packet_id;
 
+  // 领取id
+  @NotEmpty(message = "领取人id")
+  private String user_id;
+
   // 领取的金额
-  @NotEmpty(message = "领取金额不可为空")
-  @Size(message = "领取金额至少大于0")
   private Double amout;
 
   // 领取时间
@@ -33,6 +34,7 @@ public class RedPacketDetail {
     return "RedPacketDetail{" +
       "id='" + id + '\'' +
       ", packet_id='" + packet_id + '\'' +
+      ", user_id='" + user_id + '\'' +
       ", amout=" + amout +
       ", createTime=" + createTime +
       '}';
@@ -52,6 +54,14 @@ public class RedPacketDetail {
 
   public void setPacket_id(String packet_id) {
     this.packet_id = packet_id;
+  }
+
+  public String getUser_id() {
+    return user_id;
+  }
+
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
   }
 
   public Double getAmout() {

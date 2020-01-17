@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 15/01/2020 17:21:09
+ Date: 17/01/2020 13:46:53
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `red_packet_detail_table`  (
   `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
   `packet_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '红包的主键id，外键',
   `amout` double(255, 0) NOT NULL COMMENT '领取的金额值',
-  `createTime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '领取时间',
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '领取时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
@@ -40,9 +40,15 @@ CREATE TABLE `red_packet_table`  (
   `restNum` int(100) NOT NULL COMMENT '红包剩余个数',
   `totalAmount` double(255, 2) NOT NULL COMMENT '红包金额',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '红包备注',
-  `createTime` timestamp(0) NOT NULL COMMENT '创建时间',
+  `version` int(11) NOT NULL COMMENT '版本，乐观锁',
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of red_packet_table
+-- ----------------------------
+INSERT INTO `red_packet_table` VALUES ('1218019269032415232', '1217731265990627328', 10, 10, 10.00, 'test', 0, '2020-01-17 12:03:44');
 
 -- ----------------------------
 -- Table structure for user_table
@@ -56,5 +62,10 @@ CREATE TABLE `user_table`  (
   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_table
+-- ----------------------------
+INSERT INTO `user_table` VALUES ('1217731265990627328', 'user01', 'password', '大象', '2020-01-16 16:52:20');
 
 SET FOREIGN_KEY_CHECKS = 1;

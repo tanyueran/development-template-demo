@@ -22,7 +22,6 @@ public class RedPacket {
   private Integer totalNum;
 
   //  剩余红包数
-  @Size(min = 0, message = "红宝书至少一个")
   private Integer restNum;
 
   //  红包总金额
@@ -33,6 +32,9 @@ public class RedPacket {
   // 备注
   private String remark;
 
+  // 版本
+  private Integer version;
+
   //  创建时间
   @JSONField(format = "yyyy-MM-dd HH:mm:ss")
   private Date createTime;
@@ -42,13 +44,14 @@ public class RedPacket {
 
   @Override
   public String toString() {
-    return "RedPacketMapper{" +
+    return "RedPacket{" +
       "id='" + id + '\'' +
       ", user_id='" + user_id + '\'' +
       ", totalNum=" + totalNum +
       ", restNum=" + restNum +
       ", totalAmount=" + totalAmount +
       ", remark='" + remark + '\'' +
+      ", version=" + version +
       ", createTime=" + createTime +
       '}';
   }
@@ -99,6 +102,14 @@ public class RedPacket {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public Integer getVersion() {
+    return version;
+  }
+
+  public void setVersion(Integer version) {
+    this.version = version;
   }
 
   public Date getCreateTime() {

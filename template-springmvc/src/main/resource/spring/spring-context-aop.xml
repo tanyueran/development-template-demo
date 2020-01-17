@@ -16,4 +16,9 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+  <!--配置事务注解，如果没有@Transition，则下面配置具体的切入点-->
+  <aop:config proxy-target-class="false"/>
+  <!--配置aspectj-->
+  <aop:aspectj-autoproxy proxy-target-class="true"/>
+
 </beans>

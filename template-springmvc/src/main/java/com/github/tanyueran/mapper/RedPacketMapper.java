@@ -10,8 +10,8 @@ public interface RedPacketMapper {
   void addRedPacket(@Param("redPacket") RedPacket redPacket);
 
   // 根据id查询红包数据
-  RedPacketMapper getRedPacketById(@Param("id") String id);
+  RedPacket getRedPacketById(@Param("id") String id);
 
   // 更新红包剩余数量
-  void setRedPacketRestNum(@Param("num") Integer num);
+  Integer updateRedPacketRestNum(@Param("redPacket") RedPacket redPacket);
 }

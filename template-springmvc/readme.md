@@ -18,6 +18,11 @@ RED_PACKET_DETAIL_TABLE：红包详情表
 
 详情见：src/main/sql/red-packet.sql
 
+### 各层的划分规范（个人浅见）
+1. dao层使用mybatis，首先根据数据库表、视图、创建mapper，其次使用根据具体的业务需要创建mapper
+2. service层根据具体的业务划分类和方法
+3. web层（controller）根据前端需要的接口来创建类和方法
+
 
 ## 技术依赖
 1. spring
@@ -25,5 +30,8 @@ RED_PACKET_DETAIL_TABLE：红包详情表
 3. mybatis
 4. redis
 5. mysql
+
+## 遇到的问题记录
+1. 自己抛出的异常需要回滚的时候，需要抛出RuntimeException
 
 > 未完待续

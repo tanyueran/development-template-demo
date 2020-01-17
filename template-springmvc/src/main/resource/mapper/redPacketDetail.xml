@@ -6,12 +6,15 @@
   <!--添加-->
   <insert id="addRedPacketDetail" parameterType="RedPacketDetail">
     INSERT INTO
-    red_packet_detail_table(id,packet_id,amout)
-    VALUES (#{redPacketDetail.id},#{redPacketDetail.packet_id},#{redPacketDetail.amout})
+    red_packet_detail_table(id,packet_id,amout,user_id)
+    VALUES (#{redPacketDetail.id},
+    #{redPacketDetail.packet_id},
+    #{redPacketDetail.amout},
+    #{redPacketDetail.user_id})
   </insert>
 
   <!--根据红包id查询-->
-  <select id="getAllRedPacketDetailByPacketId">
-    SELECT * FROM red_table_detail_table WHERE packet_id = #{id}
+  <select id="getAllRedPacketDetailByPacketId" resultType="RedPacketDetail">
+    SELECT * FROM red_packet_detail_table WHERE packet_id = #{id}
   </select>
 </mapper>

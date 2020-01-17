@@ -27,6 +27,7 @@
     <fastjson.version>1.2.58</fastjson.version>
     <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
     <servlet.version>3.1.0</servlet.version>
+    <aspectj.version>1.9.5</aspectj.version>
   </properties>
 
   <dependencies>
@@ -136,6 +137,14 @@
       <artifactId>hibernate-validator</artifactId>
       <version>${hibernate-validator.version}</version>
     </dependency>
+
+    <!--aspectj-->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
