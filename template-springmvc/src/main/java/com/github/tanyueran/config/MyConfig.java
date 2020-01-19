@@ -12,4 +12,5 @@ public class MyConfig {
   public IdBuilder IdBuilder() {
     return new IdBuilder(1, 1, 1);
   }
+
 }

@@ -8,6 +8,7 @@ import com.github.tanyueran.mapper.RedPacketMapper;
 import com.github.tanyueran.service.RedPacketService;
 import com.github.tanyueran.utils.RedUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class RedPacketServiceImp implements RedPacketService {
 
   @Autowired
   private RedPacketDetailMapper redPacketDetailMapper;
+
+  @Autowired
+  private RedisTemplate redisTemplate;
 
   /*
    * 发红包
@@ -104,6 +108,7 @@ public class RedPacketServiceImp implements RedPacketService {
     RedPacket packet = new RedPacket();
     packet.setId(redPacketId);
     packet.setUser_id(null);
-    return redPacketDetailMapper.getAllRedPacketDetailByPacketId(packet);
+    List<RedPacketDetail> list = redPacketDetailMapper.getAllRedPacketDetailByPacketId(packet);
+    return list;
   }
 }

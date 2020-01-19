@@ -3,10 +3,11 @@ package com.github.tanyueran.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 
 // 红包详情
-public class RedPacketDetail {
+public class RedPacketDetail implements Serializable {
   // 红包详情主键id
   @NotEmpty(message = "红包详情id不可为空")
   private String id;

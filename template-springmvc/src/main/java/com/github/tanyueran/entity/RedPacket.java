@@ -4,10 +4,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
 // 红包
-public class RedPacket {
+public class RedPacket implements Serializable {
   // 主键
   @NotEmpty(message = "id 不可为空")
   private String id;
