@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 17/01/2020 13:46:53
+ Date: 19/01/2020 15:21:56
 */
 
 SET NAMES utf8mb4;
@@ -23,8 +23,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `red_packet_detail_table`;
 CREATE TABLE `red_packet_detail_table`  (
   `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
-  `packet_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '红包的主键id，外键',
-  `amout` double(255, 0) NOT NULL COMMENT '领取的金额值',
+  `packet_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '红包的主键id',
+  `user_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '领取人id',
+  `amout` double(255, 2) NOT NULL COMMENT '领取的金额值',
   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '领取时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
@@ -46,11 +47,6 @@ CREATE TABLE `red_packet_table`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of red_packet_table
--- ----------------------------
-INSERT INTO `red_packet_table` VALUES ('1218019269032415232', '1217731265990627328', 10, 10, 10.00, 'test', 0, '2020-01-17 12:03:44');
-
--- ----------------------------
 -- Table structure for user_table
 -- ----------------------------
 DROP TABLE IF EXISTS `user_table`;
@@ -67,5 +63,8 @@ CREATE TABLE `user_table`  (
 -- Records of user_table
 -- ----------------------------
 INSERT INTO `user_table` VALUES ('1217731265990627328', 'user01', 'password', '大象', '2020-01-16 16:52:20');
+INSERT INTO `user_table` VALUES ('1218766540724375552', 'user02', 'password', '张三', '2020-01-19 13:32:36');
+INSERT INTO `user_table` VALUES ('1218768250045861888', 'user03', 'password', '李四', '2020-01-19 13:33:03');
+INSERT INTO `user_table` VALUES ('1218769019004391424', 'user04', 'password', '李四2', '2020-01-19 13:45:32');
 
 SET FOREIGN_KEY_CHECKS = 1;

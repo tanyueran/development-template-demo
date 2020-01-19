@@ -9,7 +9,7 @@
     SELECT * FROM user_table;
   </select>
 
-  <select id="getUserById" resultType="User">
+  <select id="getUserByUsername" resultType="User">
     SELECT * FROM user_table WHERE username=#{username};
   </select>
 

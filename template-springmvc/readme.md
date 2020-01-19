@@ -12,9 +12,9 @@
 USER_TABLE：用户表  
   (id,username,password,nickname,createTime)    
 RED_PACKET_TABLE：红包表  
-  (id,createTime,user_id,totalNum,totalAmount,restNum,remark)   
+  (id,createTime,user_id,totalNum,totalAmount,restNum,remark,version)   
 RED_PACKET_DETAIL_TABLE：红包详情表  
-  (id,packet_id,createTime,amount)  
+  (id,packet_id,createTime,amount,user_id)  
 
 详情见：src/main/sql/red-packet.sql
 
@@ -33,5 +33,6 @@ RED_PACKET_DETAIL_TABLE：红包详情表
 
 ## 遇到的问题记录
 1. 自己抛出的异常需要回滚的时候，需要抛出RuntimeException
+2. mapper不能实现重载，如果想做可以通过一个对象传入进入参数的处理
 
 > 未完待续

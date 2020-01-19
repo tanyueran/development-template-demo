@@ -3,6 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.tanyueran.mapper.RedPacketDetailMapper">
+
+  <!--根据用户id和红包id查询-->
+  <sql id="getRedPacketDetailByPacketIdAndUserIdSql">
+    SELECT *
+    FROM red_packet_detail_table
+    WHERE packet_id = #{id}
+    <if test="user_id != null">
+      AND
+      user_id = #{user_id}
+    </if>
+  </sql>
+
   <!--添加-->
   <insert id="addRedPacketDetail" parameterType="RedPacketDetail">
     INSERT INTO
@@ -13,8 +25,13 @@
     #{redPacketDetail.user_id})
   </insert>
 
-  <!--根据红包id查询-->
-  <select id="getAllRedPacketDetailByPacketId" resultType="RedPacketDetail">
-    SELECT * FROM red_packet_detail_table WHERE packet_id = #{id}
+  <!--根据用户id查询红包领取情况-->
+  <select id="getAllRedPacketDetailByPacketId" parameterType="RedPacket" resultType="RedPacketDetail">
+    <include refid="getRedPacketDetailByPacketIdAndUserIdSql"/>
+  </select>
+
+  <!--根据红包id、用户id查询-->
+  <select id="getRedPacketDetailByPacketIdAndUserId" parameterType="RedPacket" resultType="RedPacketDetail">
+    <include refid="getRedPacketDetailByPacketIdAndUserIdSql"/>
   </select>
 </mapper>
