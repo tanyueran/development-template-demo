@@ -5,6 +5,7 @@ import com.github.tanyueran.entity.RedPacketDetail;
 import com.github.tanyueran.exception.NoAmountException;
 
 import java.util.List;
+import java.util.Map;
 
 // 抢红包业务模块
 public interface RedPacketService {
@@ -15,5 +16,5 @@ public interface RedPacketService {
   RedPacketDetail gainRedPacket(RedPacketDetail redPacketDetail) throws Exception;
 
   // 根据红包id查询红包领取情况
-  List<RedPacketDetail> selectRedPacketList(String redPacketId);
+  List<Map> selectRedPacketList(String redPacketId);
 }

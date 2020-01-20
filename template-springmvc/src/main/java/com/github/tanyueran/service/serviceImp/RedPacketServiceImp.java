@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -58,6 +59,9 @@ public class RedPacketServiceImp implements RedPacketService {
   public RedPacketDetail gainRedPacket(RedPacketDetail redPacketDetail) throws Exception {
     // 查询红包信息
     RedPacket redPacket = redPacketMapper.getRedPacketById(redPacketDetail.getPacket_id());
+    if (redPacket == null) {
+      throw new RuntimeException("该红包不存在");
+    }
     // 是否还有剩余红包
     if (redPacket.getRestNum() <= 0) {
       throw new NoAmountException("红包已抢完");
@@ -73,10 +77,10 @@ public class RedPacketServiceImp implements RedPacketService {
     // 获取所有的的数据
     RedPacket packetForAll = new RedPacket();
     packetForAll.setId(redPacket.getId());
-    List<RedPacketDetail> list1 = redPacketDetailMapper.getAllRedPacketDetailByPacketId(packetForAll);
+    List<Map> list1 = redPacketDetailMapper.getAllRedPacketDetailByPacketId(packetForAll);
     double sum = 0;
     for (int i = 0; i < list1.size(); i++) {
-      sum += list1.get(i).getAmout();
+      sum += (double) list1.get(i).get("amout");
     }
     // 剩余金额
     double remainMoney = redPacket.getTotalAmount() - sum;
@@ -104,11 +108,11 @@ public class RedPacketServiceImp implements RedPacketService {
    * 获取红包领取情况
    * */
   @Override
-  public List<RedPacketDetail> selectRedPacketList(String redPacketId) {
+  public List<Map> selectRedPacketList(String redPacketId) {
     RedPacket packet = new RedPacket();
     packet.setId(redPacketId);
     packet.setUser_id(null);
-    List<RedPacketDetail> list = redPacketDetailMapper.getAllRedPacketDetailByPacketId(packet);
+    List<Map> list = redPacketDetailMapper.getAllRedPacketDetailByPacketId(packet);
     return list;
   }
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RedPacketDetailMapper {
@@ -13,7 +14,7 @@ public interface RedPacketDetailMapper {
   void addRedPacketDetail(@Param("redPacketDetail") RedPacketDetail redPacketDetail);
 
   // 根据红包id查询详情
-  List<RedPacketDetail> getAllRedPacketDetailByPacketId(RedPacket redPacket);
+  List<Map> getAllRedPacketDetailByPacketId(RedPacket redPacket);
 
   // 根据红包id和用户id查询(不必有)红包详情，该用户已领取
   List<RedPacketDetail> getRedPacketDetailByPacketIdAndUserId(RedPacket redPacket);

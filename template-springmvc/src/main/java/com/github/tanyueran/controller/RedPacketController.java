@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/redpacket")
@@ -45,8 +46,8 @@ public class RedPacketController {
 
   // 查询红包领取情况
   @GetMapping("/get/{redPackId}")
-  public List<RedPacketDetail> getRedPacketDetail(@PathVariable("redPackId") String redPackId) {
-    List<RedPacketDetail> list = redPacketServiceImp.selectRedPacketList(redPackId);
+  public List<Map> getRedPacketDetail(@PathVariable("redPackId") String redPackId) {
+    List<Map> list = redPacketServiceImp.selectRedPacketList(redPackId);
     return list;
   }
 
