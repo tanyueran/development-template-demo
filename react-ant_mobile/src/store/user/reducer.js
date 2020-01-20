@@ -13,6 +13,7 @@ let defaultValue = {
   id: null,
   username: null,
   isLogin: false,
+  token: '',
 };
 
 // 从缓存中取

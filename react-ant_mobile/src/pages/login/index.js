@@ -12,8 +12,6 @@ import './index.scss'
 import logo from '../../images/logo.jpg'
 
 import {set_user} from '../../store/user/action.js'
-import {WhiteSpace} from "antd-mobile";
-
 
 class LoginPage extends React.Component {
 
@@ -58,6 +56,7 @@ class LoginPage extends React.Component {
         username: this.state.username,
         id: new Date().getTime(),
         isLogin: true,
+        token: 'asdfasdfasdfjsadljflasjdflasjdf',
       }));
       this.props.history.push('/app/page1')
     }).catch(({errors}) => {

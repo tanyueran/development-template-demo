@@ -8,13 +8,12 @@ import {connect} from "react-redux";
 import {Card, WingBlank, WhiteSpace, Button, Modal} from 'antd-mobile'
 
 import {del_user} from "../../../../store/user/action";
-
 import img from '../../../../images/logo.jpg'
 
 class Page1 extends React.Component {
 
   logoutHandler = () => {
-    const alertInstance = Modal.alert('提示', '您确定退出吗？', [
+    Modal.alert('提示', '您确定退出吗？', [
       {
         text: '取消', onPress: () => {
         }, style: 'default'
