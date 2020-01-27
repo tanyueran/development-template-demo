@@ -2,9 +2,11 @@ package com.github.tanyueran.config;
 
 import com.github.tanyueran.utils.IdBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 @Component
+@EnableAspectJAutoProxy
 public class MyConfig {
 
   // id生成器
