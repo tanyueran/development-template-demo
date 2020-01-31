@@ -2,6 +2,10 @@ package com.github.tanyueran.service;
 
 import com.github.tanyueran.service.serviceImp.RedPacketServiceImp;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.Subject;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -27,7 +31,17 @@ public class Test {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
+	// 测试shiro
+	@org.junit.Test
+	public void run() {
+		SecurityManager manager = SecurityUtils.getSecurityManager();
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken("username", "password");
+		subject.login(token);
+	}
 
+
+	// 测试redis
 	@org.junit.Test
 	public void run3() {
 		SessionCallback<Object> callback = new SessionCallback<Object>() {
@@ -40,6 +54,7 @@ public class Test {
 		redisTemplate.execute(callback);
 	}
 
+	// 测试redis
 	@org.junit.Test
 	public void run2() throws InterruptedException {
 		redisTemplate.opsForValue().set("key", "value");
@@ -49,6 +64,7 @@ public class Test {
 		System.out.println(key);
 	}
 
+	// 测试
 	@org.junit.Test
 	public void run1() {
 		List<Map> list = redPacketServiceImp.selectRedPacketList("1218797573624696832");

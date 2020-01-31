@@ -1,21 +1,62 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : local-mysql
  Source Server Type    : MySQL
- Source Server Version : 50725
+ Source Server Version : 50724
  Source Host           : localhost:3306
  Source Schema         : red-packet
 
  Target Server Type    : MySQL
- Target Server Version : 50725
+ Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 19/01/2020 15:21:56
+ Date: 31/01/2020 16:01:23
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for button_table
+-- ----------------------------
+DROP TABLE IF EXISTS `button_table`;
+CREATE TABLE `button_table`  (
+  `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `buttonCode` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '按钮的code值',
+  `buttonName` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '按钮的名称',
+  `menu_id` int(11) NOT NULL COMMENT '外键，所属菜单的id',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '按钮说明备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `按钮code值`(`buttonCode`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for menu_table
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_table`;
+CREATE TABLE `menu_table`  (
+  `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `menuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '菜单的名称',
+  `menuCode` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '菜单的code',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `菜单code值`(`menuCode`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for privilege_table
+-- ----------------------------
+DROP TABLE IF EXISTS `privilege_table`;
+CREATE TABLE `privilege_table`  (
+  `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `master` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '仅仅为:user、role',
+  `masterId` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '外键、为userId或者roleId',
+  `access` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '仅仅为：menu、button',
+  `accessId` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '外键、为menuId、或则buttonId',
+  `operation` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用于开闭单个用户的功能，默认为true，',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '中间表，将user、role 和 menu相关联起来。' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for red_packet_detail_table
@@ -47,16 +88,41 @@ CREATE TABLE `red_packet_table`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for role_table
+-- ----------------------------
+DROP TABLE IF EXISTS `role_table`;
+CREATE TABLE `role_table`  (
+  `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `roleCode` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '角色code值',
+  `roleName` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '角色名称',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '说明、备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `roleCode`(`roleCode`) USING BTREE COMMENT '角色的code唯一'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for user_role_table
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role_table`;
+CREATE TABLE `user_role_table`  (
+  `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `user_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '外键，用户的id',
+  `role_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '外键，角色的id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for user_table
 -- ----------------------------
 DROP TABLE IF EXISTS `user_table`;
 CREATE TABLE `user_table`  (
   `id` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户账号',
+  `userCode` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户账号',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户密码',
-  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户昵称',
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户昵称',
   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `用户的账号`(`userCode`) USING BTREE COMMENT '用户账号唯一'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------

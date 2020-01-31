@@ -30,6 +30,7 @@
 		<aspectj.version>1.9.5</aspectj.version>
 		<javax.el-api.version>3.0.0</javax.el-api.version>
 		<javax.el.version>2.2.6</javax.el.version>
+		<shiro.version>1.4.2</shiro.version>
 	</properties>
 
 	<dependencies>
@@ -156,6 +157,23 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
+		</dependency>
+
+		<!--shiro-->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 
 
