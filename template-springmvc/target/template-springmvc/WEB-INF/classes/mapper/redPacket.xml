@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tanyueran.mapper.RedPacketMapper">
+
+  <!--添加红包-->
+  <insert id="addRedPacket" parameterType="RedPacket">
+    INSERT INTO
+    red_packet_table(id,user_id,totalNum,restNum,totalAmount,remark,version)
+     VALUES(#{redPacket.id},
+     #{redPacket.user_id},
+     #{redPacket.totalNum},
+     #{redPacket.restNum},
+     #{redPacket.totalAmount},
+     #{redPacket.remark},
+     #{redPacket.version})
+  </insert>
+
+  <!--根据id查询红包信息-->
+  <select id="getRedPacketById" resultType="RedPacket">
+    SELECT * FROM red_packet_table WHERE id = #{id}
+  </select>
+
+  <!--更新红包剩余个数、乐观锁-->
+  <update id="updateRedPacketRestNum" parameterType="RedPacket">
+    UPDATE red_packet_table
+    set restNum = restNum - 1,
+    version = version + 1
+    WHERE id=#{redPacket.id} AND version = #{redPacket.version}
+  </update>
+
+</mapper>
