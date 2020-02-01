@@ -1,10 +1,12 @@
 package com.github.tanyueran.service;
 
+import com.github.tanyueran.config.MyRealm;
 import com.github.tanyueran.service.serviceImp.RedPacketServiceImp;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +36,22 @@ public class Test {
 	// 测试shiro
 	@org.junit.Test
 	public void run() {
-		SecurityManager manager = SecurityUtils.getSecurityManager();
+		DefaultSecurityManager manager = new DefaultSecurityManager();
+		// 自定义realm
+		MyRealm realm = new MyRealm();
+		manager.setRealm(realm);
+		SecurityUtils.setSecurityManager(manager);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken("username", "password");
-		subject.login(token);
+		try {
+			subject.login(token);
+		} catch (AuthenticationException e) {
+			System.out.println(e.getMessage());
+			System.out.println("账号或则密码错误");
+		}
+		System.out.println("isAuthenticated:" + subject.isAuthenticated());
+		subject.checkRole("admin");
+		subject.checkPermission("add");
 	}
 
 

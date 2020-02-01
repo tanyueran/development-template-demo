@@ -1,8 +1,11 @@
 package com.github.tanyueran.controller;
 
-import com.github.tanyueran.entity.User;
 import com.github.tanyueran.pojo.Result;
 import com.github.tanyueran.service.serviceImp.UserServiceImp;
+import com.github.tanyueran.entity.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,25 @@ import java.util.List;
 public class UserController {
 	@Autowired
 	private UserServiceImp userService;
+
+	// 登录
+	@PostMapping("/login")
+	public String login(@RequestBody com.github.tanyueran.vo.User user) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		Subject subject = SecurityUtils.getSubject();
+		subject.login(token);
+		return "登录成功";
+	}
+
+	// 登出
+	@GetMapping("/logout")
+	public String logout() {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return "登出成功";
+	}
 
 	// 获取所有用户
 	@GetMapping("/list")
