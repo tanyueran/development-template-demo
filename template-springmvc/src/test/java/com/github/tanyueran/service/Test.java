@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.junit.runner.RunWith;
@@ -39,6 +41,11 @@ public class Test {
 		DefaultSecurityManager manager = new DefaultSecurityManager();
 		// 自定义realm
 		MyRealm realm = new MyRealm();
+		// 设置加密md5
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+		matcher.setHashAlgorithmName("md5");
+		matcher.setHashIterations(1);
+		realm.setCredentialsMatcher(matcher);
 		manager.setRealm(realm);
 		SecurityUtils.setSecurityManager(manager);
 		Subject subject = SecurityUtils.getSubject();

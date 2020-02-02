@@ -13,21 +13,21 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImp implements UserService {
-  @Autowired
-  private UserMapper userMapper;
+	@Autowired
+	private UserMapper userMapper;
 
-  @Override
-  public List<User> getAllUser() {
-    return userMapper.getUserLit();
-  }
+	@Override
+	public List<User> getAllUser() {
+		return userMapper.getUserLit();
+	}
 
-  @Override
-  public User getUserByUsername(String username) {
-    return userMapper.getUserByUsername(username);
-  }
+	@Override
+	public User getUserByUserCode(String userCode) {
+		return userMapper.getUserByUserCode(userCode);
+	}
 
-  @Override
-  public void addUser(User user) {
-    userMapper.insertUser(user);
-  }
+	@Override
+	public void addUser(User user) {
+		userMapper.insertUser(user);
+	}
 }

@@ -8,10 +8,12 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-  List<User> getUserLit();
+	List<User> getUserLit();
 
-  User getUserByUsername(String username);
+	User getUserByUserCode(String userCode);
 
-  void insertUser(@Param("user") User user);
+	void insertUser(@Param("user") User user);
+
+	User getUserByUserCodeAndPassword(@Param("userCode") String userCode, @Param("password") String password);
 
 }

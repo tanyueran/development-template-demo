@@ -5,6 +5,7 @@ import com.github.tanyueran.service.serviceImp.UserServiceImp;
 import com.github.tanyueran.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +21,27 @@ public class UserController {
 
 	// 登录
 	@PostMapping("/login")
-	public String login(@RequestBody com.github.tanyueran.vo.User user) {
+	public Object login(@RequestBody com.github.tanyueran.vo.User user) {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		Subject subject = SecurityUtils.getSubject();
-		subject.login(token);
-		return "登录成功";
+		try {
+			subject.login(token);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Result result = new Result();
+			result.setCode(-100);
+			result.setMsg("账号密码错误");
+			result.setObj(false);
+			return result;
+		}
+		return subject.getSession().getId().toString();
 	}
 
 	// 登出
 	@GetMapping("/logout")
+	@RequiresRoles("user")
 	public String logout() {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
@@ -44,15 +55,15 @@ public class UserController {
 	}
 
 	// 根据id获取用户
-	@GetMapping("/get/{username}")
-	public User getUserByUsername(@PathVariable("username") String username) {
-		return userService.getUserByUsername(username);
+	@GetMapping("/get/{userCode}")
+	public User getUserByUsername(@PathVariable("userCode") String userCode) {
+		return userService.getUserByUserCode(userCode);
 	}
 
 	// 检测用户账号是否使用
-	@GetMapping("/used/{username}")
-	public Boolean userIsUsed(@PathVariable("username") String username) {
-		if (userService.getUserByUsername(username) != null) {
+	@GetMapping("/used/{userCode}")
+	public Boolean userIsUsed(@PathVariable("userCode") String userCode) {
+		if (userService.getUserByUserCode(userCode) != null) {
 			return true;
 		}
 		return false;
@@ -62,7 +73,7 @@ public class UserController {
 	@PostMapping("/add")
 	public Object addUser(@RequestBody @Valid User user) {
 		// 检测账号是否使用
-		if (userService.getUserByUsername(user.getUsername()) != null) {
+		if (userService.getUserByUserCode(user.getUserCode()) != null) {
 			return Result.setError("该账号已被使用");
 		}
 		userService.addUser(user);

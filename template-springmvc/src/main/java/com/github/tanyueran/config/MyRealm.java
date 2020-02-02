@@ -1,5 +1,6 @@
 package com.github.tanyueran.config;
 
+import com.github.tanyueran.entity.User;
 import com.github.tanyueran.mapper.UserMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -19,22 +20,19 @@ public class MyRealm extends AuthorizingRealm {
 	// 认证
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		// 注意：仅仅用账号去查询用户信息，然后获取盐、密码等，给shiro去匹对
 		String username = (String) token.getPrincipal();
-		String password = new String((char[]) token.getCredentials());
-		// 查询数据库，看账号密码是否正确
-		if (!username.equals("username")) {
-			throw new UnknownAccountException();
+		User user = userMapper.getUserByUserCode(username);
+		if (user == null) {
+			throw new AuthenticationException("用户名或者密码不正确");
 		}
-		if (!password.equals("password")) {
-			throw new IncorrectCredentialsException();
-		}
-
-		return new SimpleAuthenticationInfo(username, password, getName());
+		return new SimpleAuthenticationInfo(username, user.getPassword(), getName());
 	}
 
 	// 授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		System.out.println("执行了======================授权");
 		String username = (String) principals.getPrimaryPrincipal();
 		// 通过用户名查询权限
 		Set<String> roles = getUserRolesByUsername(username);

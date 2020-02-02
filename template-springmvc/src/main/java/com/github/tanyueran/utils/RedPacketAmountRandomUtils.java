@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 // 红包金额随机
-public class RedUtils {
+public class RedPacketAmountRandomUtils {
 
   /***
    * 红包随机算法
@@ -42,7 +42,7 @@ public class RedUtils {
     int len = size;
     List<Double> list = new ArrayList<>(10);
     for (int i = 0; i < len; i++) {
-      double j = RedUtils.randomNum(size, money);
+      double j = RedPacketAmountRandomUtils.randomNum(size, money);
       System.out.println("剩余红包数:" + size + "剩余金额数：" + money + "随机金额：" + j);
       size--;
       money -= j;
