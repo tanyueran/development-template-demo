@@ -27,7 +27,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
 		Serializable serializable = generateSessionId(session);
 		// 将生成的sessionId 和 当前的session进行捆绑
 		assignSessionId(session, serializable);
-		redisTemplate.opsForValue().set((REDIS_SESSION_PREFIX + serializable.toString()), JSONObject.toJSON(session));
+		redisTemplate.opsForValue().set((REDIS_SESSION_PREFIX + serializable.toString()), session);
 		return serializable;
 	}
 
@@ -40,15 +40,13 @@ public class RedisSessionDao extends AbstractSessionDAO {
 		if (o == null) {
 			return null;
 		}
-		// todo :此处反序列化有问题
-		Session session = (Session) (o.toJavaObject(Object.class));
-		return session;
+		return o.toJavaObject(Session.class);
 	}
 
 	@Override
 	public void update(Session session) throws UnknownSessionException {
-		Serializable serializable = generateSessionId(session);
-		redisTemplate.opsForValue().set((REDIS_SESSION_PREFIX + serializable.toString()), JSONObject.toJSON(session));
+		Serializable id = session.getId();
+		redisTemplate.opsForValue().set((REDIS_SESSION_PREFIX + id.toString()), session);
 	}
 
 	@Override
