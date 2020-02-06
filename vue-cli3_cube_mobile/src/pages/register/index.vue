@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="login-box">
-      <h1>登录</h1>
+      <h1>注册</h1>
       <section>
         <p>
           <span class="icon icon-username cubeic-person"></span>
@@ -11,11 +11,15 @@
           <span class="icon icon-pwd cubeic-lock"></span>
           <input v-model="userInfo.password" placeholder="密码" type="password">
         </p>
+        <p>
+          <span class="icon icon-pwd cubeic-lock"></span>
+          <input v-model="userInfo.password2" placeholder="确认密码" type="password">
+        </p>
         <div class="btn-box">
-          <button class="login-btn" @click="loginClickHandler">登录</button>
+          <button class="register-btn">注册</button>
         </div>
         <div class="btn-box">
-          <button class="register-btn" @click="$router.replace({name:'register'})">注册</button>
+          <button class="login-btn" @click="$router.replace({name:'login'})">登录</button>
         </div>
       </section>
     </div>
@@ -26,16 +30,17 @@
   import validator from 'async-validator';
 
   /*
-  * 登录页面
+  * 注册界面
   * */
   export default {
-    name: 'loginPage',
+    name: 'registerPage',
     data() {
       return {
         // 用户信息
         userInfo: {
-          username: 'admin',
-          password: 'password',
+          username: '',
+          password: '',
+          password2: '',
         },
         description: {
           username: {
@@ -159,7 +164,7 @@
     color: #f0f0f0;
     width: 100%;
 
-    &.login-btn {
+    &.register-btn {
       border-color: transparent;
       background-color: rgba(240, 167, 50, .8);
 

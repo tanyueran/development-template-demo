@@ -41,6 +41,16 @@ const router = new VueRouter({
         title: '登录',
       }
     },
+    // 注册
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../pages/register/index.vue'),
+      meta: {
+        needLogin: false,
+        title: '注册',
+      }
+    },
     // 主页
     {
       path: '/home',

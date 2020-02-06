@@ -3,7 +3,7 @@
     <li @click="goto('home')"
         :class="[$route.name=='home'?'active':'']">
       <span class="cubeic-home"></span>
-      首页
+      <span>首页</span>
     </li>
     <li @click="goto('page1')"
         :class="[$route.name=='page1'?'active':'']">
@@ -50,19 +50,25 @@
   ul {
     border-top: 1px solid #efefef;
     display: flex;
+    height: $footer-height;
 
     > li {
-      height: $footer-height;
-      line-height: $footer-height;
       cursor: pointer;
       text-align: center;
-      flex-grow: 1;
       position: relative;
+      flex-grow: 1;
+      flex-basis: 0;
+      flex-shrink: 0;
       overflow: hidden;
       background-color: rgb(244, 244, 244);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: px2rem(16);
+      color: #909090;
 
-      &:not(:last-child) {
-        border-right: 1px solid #fff;
+      > span {
+        margin-bottom: px2rem(4);
       }
 
       &.active {
