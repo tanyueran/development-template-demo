@@ -3,7 +3,7 @@
     <li @click="goto('home')"
         :class="[$route.name=='home'?'active':'']">
       <span class="cubeic-home"></span>
-      <span>首页</span>
+      首页
     </li>
     <li @click="goto('page1')"
         :class="[$route.name=='page1'?'active':'']">
