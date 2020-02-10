@@ -1,12 +1,11 @@
 package com.github.tanyueran.service;
 
-import com.github.tanyueran.config.MyRealm;
+import com.github.tanyueran.shiro.MyRealm;
 import com.github.tanyueran.service.serviceImp.RedPacketServiceImp;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;

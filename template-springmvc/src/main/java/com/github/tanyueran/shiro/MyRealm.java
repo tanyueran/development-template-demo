@@ -1,4 +1,4 @@
-package com.github.tanyueran.config;
+package com.github.tanyueran.shiro;
 
 import com.github.tanyueran.entity.User;
 import com.github.tanyueran.mapper.UserMapper;

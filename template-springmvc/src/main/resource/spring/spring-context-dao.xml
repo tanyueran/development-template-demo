@@ -16,77 +16,87 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-  <!--扫描service-->
-  <context:component-scan base-package="com.github.tanyueran.service.serviceImp"/>
+    <!--扫描service-->
+    <context:component-scan base-package="com.github.tanyueran.service.serviceImp"/>
 
-  <!--引入数据库配置文件-->
-  <context:property-placeholder location="classpath:database.properties"/>
+    <!--引入数据库配置文件-->
+    <context:property-placeholder location="classpath:database.properties"/>
 
-  <!--配置数据库连接池-->
-  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-        init-method="init"
-        destroy-method="close">
-    <property name="username" value="${database.username}"/>
-    <property name="password" value="${database.password}"/>
-    <property name="url" value="${database.url}"/>
-    <property name="driverClassName" value="${database.driverClassName}"/>
-  </bean>
+    <!--配置数据库连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init"
+          destroy-method="close">
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="driverClassName" value="${database.driverClassName}"/>
+    </bean>
 
-  <!--配置sqlSessionFactory-->
-  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    <!--数据库连接池-->
-    <property name="dataSource" ref="dataSource"/>
-    <!--添加mybatis的基本配置-->
-    <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
-  </bean>
+    <!--配置sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--添加mybatis的基本配置-->
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+    </bean>
 
-  <!--事务管理器-->
-  <bean id="transitionManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <!--数据库连接池-->
-    <property name="dataSource" ref="dataSource"/>
-  </bean>
+    <!--事务管理器-->
+    <bean id="transitionManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
-  <!--mapper代理-->
-  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <!--mapper地址-->
-    <property name="basePackage" value="com.github.tanyueran.mapper"/>
-    <!--sqlSession工厂-->
-    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-  </bean>
+    <!--mapper代理-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--mapper地址-->
+        <property name="basePackage" value="com.github.tanyueran.mapper"/>
+        <!--sqlSession工厂-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 
-  <!--开启spring的事务注解-->
-  <tx:annotation-driven transaction-manager="transitionManage"/>
+    <!--开启spring的事务注解-->
+    <tx:annotation-driven transaction-manager="transitionManage"/>
 
-  <!--配置redis-->
-  <!--redis的基本信息配置-->
-  <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+    <!--配置redis-->
+    <!--redis的基本信息配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
 
-  <!--连接工厂-->
-  <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-    <property name="hostName" value="${redis.url}"/>
-    <property name="database" value="${redis.database}"/>
-    <property name="password" value="${redis.password}"/>
-    <property name="port" value="${redis.port}"/>
-    <property name="poolConfig" ref="jedisPoolConfig"/>
-    <property name="usePool" value="true"/>
-  </bean>
+    <!--连接工厂-->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.url}"/>
+        <property name="database" value="${redis.database}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="usePool" value="true"/>
+    </bean>
 
-  <!--spring的redis的工具类-->
-  <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-    <property name="connectionFactory" ref="connectionFactory"/>
-    <!--key的序列化器-->
-    <property name="keySerializer">
-      <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer">
-        <constructor-arg index="0" value="java.lang.Object"/>
-      </bean>
-    </property>
-    <!--value的序列化器-->
-    <property name="valueSerializer">
-      <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer">
-        <constructor-arg index="0" value="java.lang.Object"/>
-      </bean>
-    </property>
-  </bean>
+    <!--spring的redis的工具类-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--key的序列化器-->
+        <property name="keySerializer">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer">
+                <constructor-arg index="0" value="java.lang.Object"/>
+            </bean>
+        </property>
+        <!--value的序列化器-->
+        <property name="valueSerializer">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer">
+                <constructor-arg index="0" value="java.lang.Object"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="redisTemplate2" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--key的序列化器-->
+        <property name="keySerializer">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer">
+                <constructor-arg index="0" value="java.lang.Object"/>
+            </bean>
+        </property>
+    </bean>
 
 
 </beans>

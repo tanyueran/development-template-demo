@@ -1,34 +1,44 @@
-package com.github.tanyueran.session;
+package com.github.tanyueran.shiro;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Collection;
 import java.util.Set;
 
-public class MyCache<K, V> implements Cache {
+public class MyCache<K, V> implements Cache<K, V> {
+
+    private final static String PREFIX_CACHE_KEY = "template-spring-mvc-cache:";
+
+    public String getKey(K key) {
+        return PREFIX_CACHE_KEY + key;
+    }
+
 
     @Autowired
+    @Qualifier("redisTemplate2")
     private RedisTemplate redisTemplate;
 
     @Override
-    public Object get(Object o) throws CacheException {
-        Object o1 = redisTemplate.opsForValue().get(o);
-        if (o1 == null) {
+    public V get(K k) throws CacheException {
+        Object o = redisTemplate.opsForValue().get(getKey(k));
+        if (o == null) {
             return null;
         }
-        return o1;
+        return (V) o;
     }
 
     @Override
-    public Object put(Object o, Object o2) throws CacheException {
-        return null;
+    public V put(K k, V v) throws CacheException {
+//        redisTemplate.opsForValue().set();
+        return v;
     }
 
     @Override
-    public Object remove(Object o) throws CacheException {
+    public V remove(K k) throws CacheException {
         return null;
     }
 
@@ -43,12 +53,12 @@ public class MyCache<K, V> implements Cache {
     }
 
     @Override
-    public Set keys() {
+    public Set<K> keys() {
         return null;
     }
 
     @Override
-    public Collection values() {
+    public Collection<V> values() {
         return null;
     }
 }

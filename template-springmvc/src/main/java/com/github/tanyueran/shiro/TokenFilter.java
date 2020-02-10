@@ -1,8 +1,7 @@
-package com.github.tanyueran.config;
+package com.github.tanyueran.shiro;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.tanyueran.pojo.Result;
-import com.github.tanyueran.session.RedisSessionDao;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
@@ -40,7 +39,7 @@ public class TokenFilter extends AuthenticatingFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String header = req.getHeader(HEADER_PREFIX);
         // 在redis中检测是否存在
-        Object o = redisTemplate.opsForValue().get((RedisSessionDao.getKey(header)));
+        Object o = redisTemplate.opsForValue().get((MySessionDao.getKey(header)));
         if (o == null) {
             Result result = new Result();
             result.setCode(-100);

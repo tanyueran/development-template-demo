@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * redis共享session。
  */
-public class RedisSessionDao extends AbstractSessionDAO {
+public class MySessionDao extends AbstractSessionDAO {
 
     @Autowired
     @Qualifier("redisTemplate2")// 这个redisTemplate只能是使用byte的，使用json的出错
@@ -25,8 +25,8 @@ public class RedisSessionDao extends AbstractSessionDAO {
     // redis中session的前缀
     private static final String REDIS_SESSION_PREFIX = "template-spring-mvc-session:";
 
-    public static byte[] getKey(String key) {
-        return (REDIS_SESSION_PREFIX + key).getBytes();
+    public static String getKey(String key) {
+        return REDIS_SESSION_PREFIX + key;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
 
     @Override
     public Collection<Session> getActiveSessions() {
-        Set<Session> set = redisTemplate.keys(REDIS_SESSION_PREFIX + "*");
+        Set<Session> set = redisTemplate.keys(getKey("*"));
         return set;
     }
 }

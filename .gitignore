@@ -5,3 +5,4 @@ dist/
 .CVS
 .idea
 .iml
+target/

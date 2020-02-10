@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			 xmlns:context="http://www.springframework.org/schema/context"
-			 xmlns:aop="http://www.springframework.org/schema/aop"
-			 xmlns:tx="http://www.springframework.org/schema/tx"
-			 xmlns:mvc="http://www.springframework.org/schema/mvc"
-			 xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
@@ -15,60 +15,69 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	<!--保证shiro的生命周期处理器-->
-	<bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	<!--开启shiro授权生效-->
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="defaultWebSecurityManager"/>
-	</bean>
+    <!--保证shiro的生命周期处理器-->
+    <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!--开启shiro授权生效-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="defaultWebSecurityManager"/>
+    </bean>
 
-	<!--加密方式-->
-	<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="credentialsMatcher">
-		<property name="hashAlgorithmName" value="md5"/>
-		<property name="hashIterations" value="1"/>
-	</bean>
+    <!--加密方式-->
+    <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="credentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="1"/>
+    </bean>
 
-	<!--自定义的realm-->
-	<bean class="com.github.tanyueran.config.MyRealm" id="myRealm">
-		<property name="credentialsMatcher" ref="credentialsMatcher"/>
-	</bean>
+    <!--自定义的realm-->
+    <bean class="com.github.tanyueran.shiro.MyRealm" id="myRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
 
-	<!--securityManager对象-->
-	<bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="defaultWebSecurityManager">
-		<property name="realm" ref="myRealm"/>
-		<property name="sessionManager" ref="defaultWebSessionManager"/>
-	</bean>
+    <!--securityManager对象-->
+    <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="defaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <property name="sessionManager" ref="defaultWebSessionManager"/>
+    </bean>
 
-	<!--sessionManager对象-->
-	<bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" id="defaultWebSessionManager">
-		<property name="sessionDAO">
-			<bean class="com.github.tanyueran.session.RedisSessionDao"/>
-		</property>
-		<property name="sessionIdCookieEnabled" value="true"/>
-		<property name="sessionIdCookie">
-			<bean class="org.apache.shiro.web.servlet.SimpleCookie">
-				<constructor-arg name="name" value="shiro.sesssion"/>
-			</bean>
-		</property>
-	</bean>
+    <!--sessionManager对象-->
+    <bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" id="defaultWebSessionManager">
+        <property name="sessionDAO">
+            <bean class="com.github.tanyueran.shiro.MySessionDao"/>
+        </property>
+        <!--删除在session过期时跳转页面时自动在URL中添加JSESSIONID-->
+        <property name="sessionIdUrlRewritingEnabled" value="false"/>
+        <!-- 设置超时时间 -->
+        <property name="globalSessionTimeout" value="1800000"/>
+        <!-- 删除失效的session -->
+        <property name="deleteInvalidSessions" value="true"/>
+        <!-- 定时检查失效的session -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie">
+            <bean class="org.apache.shiro.web.servlet.SimpleCookie">
+                <constructor-arg name="name" value="shiro.sesssion"/>
+            </bean>
+        </property>
+    </bean>
 
-	<!--自定义的filter-->
-	<bean class="com.github.tanyueran.config.TokenFilter" id="tokenFilter"/>
+    <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
+        <property name="securityManager" ref="defaultWebSecurityManager"/>
+        <property name="loginUrl" value="/user/login"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /index.html = anon
+                /login.html = anon
+                /user/login = anon
+                /** = testFilter
+            </value>
+        </property>
+        <property name="filters">
+            <map>
+                <entry key="testFilter" value-ref="tokenFilter"/>
+            </map>
+        </property>
+    </bean>
 
-	<bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
-		<property name="securityManager" ref="defaultWebSecurityManager"/>
-		<property name="loginUrl" value="/index.html"/>
-		<property name="filterChainDefinitions">
-			<value>
-				/index.html = anon
-				/user/login = anon
-				/** = authc
-			</value>
-		</property>
-		<property name="filters">
-			<map>
-				<entry key="testFilter" value-ref="tokenFilter"/>
-			</map>
-		</property>
-	</bean>
+    <!--自定义的filter-->
+    <bean class="com.github.tanyueran.shiro.TokenFilter" id="tokenFilter"/>
 </beans>
