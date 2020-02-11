@@ -1,0 +1,14 @@
+.app-wrapper {
+  height: 100%;
+  overflow-y: hidden;
+
+  > section {
+    height: 100%;
+  }
+}
+
+.logo {
+  height: 64px;
+  line-height: 64px;
+  padding-left: 2em;
+}
