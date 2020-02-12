@@ -21,10 +21,6 @@ import {set_user} from '../../store/user/action.js'
 import logo from "../../images/logo.jpg";
 
 class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     loading: false,
   };

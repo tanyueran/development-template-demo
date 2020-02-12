@@ -1,6 +1,6 @@
-.logo {
-  font-size: 18px;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
+.home-page-container {
+  &:before, &:after {
+    content: '';
+    display: table;
+  }
 }

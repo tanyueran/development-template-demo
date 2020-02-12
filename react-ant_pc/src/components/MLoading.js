@@ -4,7 +4,7 @@
  * @Description:
  */
 import React from 'react'
-import {Icon} from "antd";
+import {Spin,} from "antd";
 
 let style = {
   position: 'fixed',
@@ -15,8 +15,7 @@ let style = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}
+};
 
-export default () => <div style={style}>
-  <Icon type="loading" size="lg"/>
-</div>
+export default () => <Spin delay={300} style={style} size={"large"}/>
+

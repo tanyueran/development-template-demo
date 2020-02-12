@@ -25,7 +25,6 @@ export default [
     component: lazy(() => import('../pages/register/index.js')),
   },
   {
-    path: '/home',
     component: lazy(() => import('../pages/home/index.js')),
     children: [
       {
@@ -36,7 +35,21 @@ export default [
       {
         path: '/home/page1',
         exact: true,
-        component: lazy(() => import('../pages/home/page1/page1.js')),
+        component: lazy(() => import('../pages/home/page1/index.js')),
+      },
+      {
+        path: '/home/page2',
+        exact: true,
+        component: lazy(() => import('../pages/home/page2/index.js')),
+      },
+      {
+        path: '/home/page3',
+        exact: true,
+        component: lazy(() => import('../pages/home/page3/index.js')),
+      },
+      {
+        path: '/home/404',
+        component: notFoundPage,
       },
     ]
   },

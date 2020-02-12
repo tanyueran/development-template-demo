@@ -4,97 +4,130 @@
  * @Description: 登录页
  */
 import React from 'react';
-import Schema from 'async-validator';
 import './index.scss'
 
 import logo from '../../images/logo.jpg'
+import {
+  message,
+  Form,
+  Icon,
+  Input,
+  Button,
+  Checkbox,
+  Tooltip,
+  Typography,
+  Modal,
+} from 'antd';
+
+import MSiteAgreement from '../../components/MSiteAgreement.js'
 
 
-export default class RegisterPage extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.validator = new Schema(this.descriptor);
-  }
-
+class RegisterPage extends React.Component {
   state = {
-    username: '',
-    password: '',
-    password2: '',
+    loading: false,
   };
 
-  // 检验规则
-  descriptor = {
-    username: [
-      {
-        type: 'string',
-        message: '用户名不可为空',
-      },
-      {
-        type: 'string',
-        required: true,
-        message: '用户名不可为空',
+  loginHandler = e => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
       }
-    ],
-    password: [
-      {
-        type: 'string',
-        required: true,
-        message: '密码不可为空',
-      }
-    ],
-    password2: [
-      {
-        type: 'string',
-        required: true,
-        message: '密码不可为空',
-      }
-    ],
-  };
-
-  // 校验器
-  validator = null;
-
-  loginHandler = () => {
-    this.props.history.replace('/login')
-  };
-
-  registerHandler = () => {
-    this.validator.validate(this.state).then(() => {
-
-    }).catch(({errors}) => {
-      // Toast.fail(errors[0].message);
-    })
+    });
   };
 
   render() {
+    const {getFieldDecorator} = this.props.form;
     return (
-      <div className='login-wrapper'>
-        <h2 className='text-center'>
-          welcome
+      <div className='register-wrapper'>
+        <Typography.Title>
+          欢迎注册
           <img src={logo} alt="logo"/>
-        </h2>
-        <form>
-          <p>
-            <input onInput={e => this.setState({username: e.target.value})} placeholder={'请输入账号'} type="text"/>
-          </p>
-          <p>
-            <input onInput={e => this.setState({password: e.target.value})} placeholder={'请输入密码'} type="password"/>
-          </p>
-          <p>
-            <input onInput={e => this.setState({password: e.target.value})} placeholder={'请再次输入密码'} type="password"/>
-          </p>
-          <p className='text-center'>
-            <button onClick={this.registerHandler} type="ghost" size="small">注册</button>
-          </p>
-          <p className='text-center'>
-            已有账号
-          </p>
-          <p className='text-center'>
-            <button onClick={this.loginHandler} type="ghost" size="small">登录</button>
-          </p>
-        </form>
+        </Typography.Title>
+        <Form {...{
+          labelCol: {span: 6},
+          wrapperCol: {span: 14},
+        }} onSubmit={this.loginHandler}>
+          <Form.Item label={"账号"} hasFeedback>
+            {getFieldDecorator('usercode', {
+              rules: [{required: true, message: '请输入登录账号!'}],
+            })(
+              <Input
+                autoComplete={"off"}
+                placeholder="请输入登录账号"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item label={"密码"} hasFeedback>
+            {getFieldDecorator('password', {
+              rules: [{required: true, message: '请输入账号密码!'}],
+            })(
+              <Input.Password
+                placeholder="请输入账号密码"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item label={"确认密码"} hasFeedback>
+            {getFieldDecorator('password2', {
+              rules: [{required: true, message: '请输入账号密码!'}],
+            })(
+              <Input.Password
+                placeholder="请确认密码"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item hasFeedback label={
+            <span>
+            用户姓名
+              <Tooltip title="请输入您的姓名或者昵称?">
+            <Icon type="question-circle-o"/>
+            </Tooltip>
+            </span>
+          }>
+            {getFieldDecorator('username', {
+              rules: [{required: true, message: '请输入昵称!'}],
+            })(
+              <Input
+                autoComplete={"off"}
+                placeholder="请输入昵称"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item wrapperCol={{span: 12, offset: 6}}>
+            {
+              getFieldDecorator('agreement', {
+                rules: [{required: true, message: '请阅读!'}],
+              })(
+                <Checkbox>
+                  阅读并接受<a onClick={
+                  (e) => {
+                    e.preventDefault();
+                    Modal.info({
+                      title: '网站用户协议',
+                      width: '500px',
+                      content: <MSiteAgreement/>,
+                      okText: '确定',
+                    })
+                  }
+                }>《网站用户协议》</a>
+                </Checkbox>
+              )
+            }
+          </Form.Item>
+          <Form.Item wrapperCol={{span: 12, offset: 6}}>
+            <Button loading={this.state.loading} type="primary" htmlType="submit">
+              注册
+            </Button>
+            <br/>
+            已有帐号<a href="#" onClick={(e) => {
+            e.preventDefault();
+            this.props.history.push("login")
+          }}>登录!</a>
+          </Form.Item>
+        </Form>
       </div>
     );
   }
 }
+
+export default Form.create()(RegisterPage)
