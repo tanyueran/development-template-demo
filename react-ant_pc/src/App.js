@@ -1,13 +1,13 @@
 import React, {Suspense} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {Affix} from 'antd';
 import routes from './router/index.js'
 
 import MLoading from './components/MLoading.js'
 
 function App() {
   return (
-    <div className="app" style={{height: '100%'}}>
+    <>
       <Suspense fallback={<MLoading/>}>
         <Router>
           <Switch>
@@ -18,10 +18,11 @@ function App() {
                 />
               )
             }
+            <Affix>123</Affix>
           </Switch>
         </Router>
       </Suspense>
-    </div>
+    </>
   );
 }
 

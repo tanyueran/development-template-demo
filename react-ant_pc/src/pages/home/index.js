@@ -14,6 +14,7 @@ import {
   Col,
   Dropdown,
   Menu,
+  Switch,
   Tooltip,
 } from 'antd';
 
@@ -42,6 +43,21 @@ class IndexPage extends React.Component {
     });
   };
 
+  // 加载主题样式
+  /*
+  * 暂时想到的办法是切换classname
+  * */
+  loadThemeStyle() {
+    let theme = window.localStorage.getItem("theme");
+    if (!theme) {
+      theme = 'light';
+    }
+    let c = document.body.classList;
+    c.remove('theme-dark');
+    c.remove('theme-light');
+    c.add('theme-' + theme);
+  }
+
   componentWillMount() {
     // 判断是否登录
     if (this.props.userInfo.isLogin) {
@@ -53,12 +69,17 @@ class IndexPage extends React.Component {
     }
   }
 
+  // 主题改变
+  changeThemeHandler = (val) => {
+    window.localStorage.setItem('theme', val ? 'light' : 'dark');
+    this.loadThemeStyle();
+  };
 
   render() {
     return (
       <Layout className="app-wrapper">
         <Sider theme={"light"} trigger={null} collapsible collapsed={this.state.collapsed}>
-          <div className="logo" style={{cursor: 'pointer', borderBottom: '1px solid #efefef'}} onClick={() => {
+          <div className="logo" style={{cursor: 'pointer'}} onClick={() => {
             this.props.history.push('/home')
           }}>
             <Icon type="home" style={{marginRight: '5px', fontSize: '18px'}}/>
@@ -69,7 +90,7 @@ class IndexPage extends React.Component {
           <MNav/>
         </Sider>
         <Layout className={"app-content-wrapper"}>
-          <Header style={{background: '#fff', padding: "0 10px",}}>
+          <Header style={{padding: "0 10px",}}>
             <Row type={"flex"}>
               <Col span={12}>
                 <Icon
@@ -80,8 +101,12 @@ class IndexPage extends React.Component {
               </Col>
               <Col push={8} span={4} style={{justifyContent: 'center', display: 'flex', alignItems: 'center'}}>
                 <Tooltip title={"使用说明"}>
-                  <Icon type="question-circle"/>
+                  <Icon style={{fontSize: '18px'}} type="question-circle"/>
                 </Tooltip>
+                {/*主题切换*/}
+                <Switch style={{margin: "0 1em"}} onChange={this.changeThemeHandler} checkedChildren="亮"
+                        unCheckedChildren="暗" defaultChecked/>
+                {/*头像*/}
                 <Avatar style={{margin: "0 1em"}} size={"small"} icon={<Icon type="user"/>}/>
                 <Dropdown overlay={
                   <Menu>
@@ -91,7 +116,7 @@ class IndexPage extends React.Component {
                     <Menu.Item>退出</Menu.Item>
                   </Menu>
                 }>
-                  <a style={{fontSize: "16px", color: "#333",}}>
+                  <a style={{fontSize: "16px",}}>
                     {this.props.userInfo.username}
                     <Icon style={{marginLeft: "5px"}} type="down"/>
                   </a>
@@ -100,7 +125,7 @@ class IndexPage extends React.Component {
             </Row>
           </Header>
           <Content className={"app-content-wrapper_box"}
-                   style={{background: "#fff", overflow: 'auto', margin: '20px 10px'}}>
+                   style={{overflow: 'auto', margin: '20px 10px'}}>
             {
               this.props.routes.map((item, i) =>
                 <Route exact={item.exact} path={item.path} key={i} render={props =>
@@ -114,7 +139,7 @@ class IndexPage extends React.Component {
                 < Redirect to="/home/404"/> : ""
             }
           </Content>
-          <Footer className={"text-center"} style={{margin: "0 10px", background: "#fff"}}>
+          <Footer className={"text-center"} style={{margin: "0 10px",}}>
             唯有阳光和绿茶最搭了！
           </Footer>
         </Layout>

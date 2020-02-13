@@ -1,0 +1,15 @@
+/**
+ *黑暗主题
+ */
+body.theme-dark {
+  color: #fff;
+  background-color: #121212;
+
+  // 覆盖
+  .ant-layout-header,
+  .ant-menu,
+  .ant-layout-sider-children {
+    background: #121212;
+    color: #fff;
+  }
+}

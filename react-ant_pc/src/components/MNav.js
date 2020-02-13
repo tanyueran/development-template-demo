@@ -14,7 +14,7 @@ class MNav extends React.Component {
   };
 
   render() {
-    return <Menu onClick={this.clickHandler} theme={"light"} selectedKeys={this.props.location.pathname}>
+    return <Menu onClick={this.clickHandler} selectedKeys={this.props.location.pathname}>
       <Menu.Item key="/home/page1">
         <Icon type="user"/>
         <span>page 1</span>

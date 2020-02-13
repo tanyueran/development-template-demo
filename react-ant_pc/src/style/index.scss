@@ -14,12 +14,10 @@ html, body {
 
 body {
   font-size: 14px;
-  color: #333;
 }
 
 #root {
   height: 100%;
-  background-color: #fff;
 }
 
 .text-center {
@@ -40,3 +38,7 @@ body {
     clear: both;
   }
 }
+
+// 加载主题样式
+@import './theme-light.scss';
+@import './theme-dark.scss';

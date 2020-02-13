@@ -1,0 +1,12 @@
+/**
+ *高亮主题的颜色
+ */
+body.theme-light {
+  background-color: #fff;
+  color: #333;
+
+  // 覆盖
+  .ant-layout-header {
+    background: #fff;
+  }
+}
