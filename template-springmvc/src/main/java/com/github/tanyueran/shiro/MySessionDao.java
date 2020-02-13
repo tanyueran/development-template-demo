@@ -25,6 +25,7 @@ public class MySessionDao extends AbstractSessionDAO {
     // redis中session的前缀
     private static final String REDIS_SESSION_PREFIX = "template-spring-mvc-session:";
 
+    // 获取
     public static String getKey(String key) {
         return REDIS_SESSION_PREFIX + key;
     }

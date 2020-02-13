@@ -30,6 +30,7 @@ RED_PACKET_DETAIL_TABLE：红包详情表
 3. mybatis
 4. redis
 5. mysql
+6. shiro
 
 ## 遇到的问题记录
 1. 自己抛出的异常需要回滚的时候，需要抛出RuntimeException

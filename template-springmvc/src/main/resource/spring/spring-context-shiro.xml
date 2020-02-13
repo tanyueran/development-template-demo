@@ -68,6 +68,7 @@
                 /index.html = anon
                 /login.html = anon
                 /user/login = anon
+                / = anon
                 /** = testFilter
             </value>
         </property>
