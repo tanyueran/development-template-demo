@@ -5,7 +5,7 @@
  */
 module.exports = {
   lintOnSave: false,
-  publicPath: './',
+  publicPath: 'http://localhost/dist/',
 
   productionSourceMap: true,
 
@@ -20,12 +20,13 @@ module.exports = {
   // 开发的代理
   devServer: {
     disableHostCheck: true,
+	port:'3002',
     proxy: {
-      '/wl_mobile_api': { //替换代理地址名称
-        target: 'http://10.19.0.55:8001/',
+      '/api': { //替换代理地址名称
+        target: 'http://localhost:3002/',
         changeOrigin: true, //可否跨域
         pathRewrite: {
-          '^/wl_mobile_api': '/services', //重写接口
+          '^/api': '/services', //重写接口
         },
       },
     },

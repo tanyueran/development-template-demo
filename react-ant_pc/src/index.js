@@ -12,7 +12,7 @@ import store from './store/index.js'
 import './style/index.scss'
 
 // 禁止react development tools
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'development') {
   try {
     let funcList = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
     for (let f in funcList) {

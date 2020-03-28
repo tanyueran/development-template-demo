@@ -8,7 +8,7 @@ import mock from 'mockjs';
 const tempalte = {
   ok(data) {
     return {
-      code: '000000',
+      code: 100,
       msg: 'ok',
       data,
     }

@@ -54,7 +54,7 @@ _AXIOS.interceptors.response.use(
     /**
      * 判断是否成功
      */
-    if (data.code != '00000') {
+    if (data.code !== 100) {
       Message({
         type: 'error',
         message: data.msg || '本次请求后台出错了'
