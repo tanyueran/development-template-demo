@@ -1,15 +1,14 @@
-// 兼容老ie
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-// 支持老ie
-import "react-app-polyfill/ie9";
-import "react-app-polyfill/stable.js";
 
 import App from './App';
 import store from './store/index.js'
-
+import 'antd/dist/antd.css';
 import './style/index.scss'
+
+// 引入模拟数据模块
+import './mock/index.js'
 
 // 禁止react development tools
 if (process.env.NODE_ENV !== 'development') {

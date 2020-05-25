@@ -6,9 +6,9 @@
 import React from 'react';
 import {withRouter, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux';
+
 import {
   Layout,
-  Icon,
   Avatar,
   Row,
   Col,
@@ -18,18 +18,27 @@ import {
   Tooltip,
 } from 'antd';
 
+import {
+  UserOutlined,
+  CaretDownOutlined,
+  CaretUpOutlined,
+  HomeOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons'
+
 import MNav from '../../components/MNav.js';
 
 import './index.scss';
 
 const {Header, Footer, Sider, Content} = Layout;
 
-
 class IndexPage extends React.Component {
 
   static stateToProps(state) {
     return {
-      userInfo: state.userReducer
+      user: state.userReducer
     }
   }
 
@@ -43,24 +52,9 @@ class IndexPage extends React.Component {
     });
   };
 
-  // 加载主题样式
-  /*
-  * 暂时想到的办法是切换classname
-  * */
-  loadThemeStyle() {
-    let theme = window.localStorage.getItem("theme");
-    if (!theme) {
-      theme = 'light';
-    }
-    let c = document.body.classList;
-    c.remove('theme-dark');
-    c.remove('theme-light');
-    c.add('theme-' + theme);
-  }
-
   componentWillMount() {
     // 判断是否登录
-    if (this.props.userInfo.isLogin) {
+    if (this.props.user.userInfo.isLogin) {
       if (this.props.location.pathname === '/') {
         this.props.history.replace('/app/page1');
       }
@@ -69,12 +63,6 @@ class IndexPage extends React.Component {
     }
   }
 
-  // 主题改变
-  changeThemeHandler = (val) => {
-    window.localStorage.setItem('theme', val ? 'light' : 'dark');
-    this.loadThemeStyle();
-  };
-
   render() {
     return (
       <Layout className="app-wrapper">
@@ -82,7 +70,7 @@ class IndexPage extends React.Component {
           <div className="logo" style={{cursor: 'pointer'}} onClick={() => {
             this.props.history.push('/home')
           }}>
-            <Icon type="home" style={{marginRight: '5px', fontSize: '18px'}}/>
+            <HomeOutlined style={{marginRight: '5px', fontSize: '18px'}}/>
             {
               this.state.collapsed ? "" : "welcome to system"
             }
@@ -93,21 +81,18 @@ class IndexPage extends React.Component {
           <Header style={{padding: "0 10px",}}>
             <Row type={"flex"}>
               <Col span={12}>
-                <Icon
-                  className="trigger"
-                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                  onClick={this.toggle}
-                />
+                {
+                  this.state.collapsed ?
+                    <MenuUnfoldOutlined onClick={this.toggle}/> :
+                    <MenuFoldOutlined onClick={this.toggle}/>
+                }
               </Col>
               <Col push={8} span={4} style={{justifyContent: 'center', display: 'flex', alignItems: 'center'}}>
                 <Tooltip title={"使用说明"}>
-                  <Icon style={{fontSize: '18px'}} type="question-circle"/>
+                  <QuestionCircleOutlined style={{fontSize: '18px'}}/>
                 </Tooltip>
-                {/*主题切换*/}
-                <Switch style={{margin: "0 1em"}} onChange={this.changeThemeHandler} checkedChildren="亮"
-                        unCheckedChildren="暗" defaultChecked/>
                 {/*头像*/}
-                <Avatar style={{margin: "0 1em"}} size={"small"} icon={<Icon type="user"/>}/>
+                <Avatar style={{margin: "0 1em"}} size={"small"} icon={<UserOutlined/>}/>
                 <Dropdown overlay={
                   <Menu>
                     <Menu.Item onClick={() => {
@@ -117,8 +102,8 @@ class IndexPage extends React.Component {
                   </Menu>
                 }>
                   <a style={{fontSize: "16px",}}>
-                    {this.props.userInfo.username}
-                    <Icon style={{marginLeft: "5px"}} type="down"/>
+                    {this.props.user.userInfo.username}
+                    <CaretDownOutlined style={{marginLeft: "5px"}}/>
                   </a>
                 </Dropdown>
               </Col>

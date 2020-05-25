@@ -3,11 +3,11 @@
  * @date $
  * @Description: 代理
  */
-const proxy = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 module.exports = function (app) {
   app.use(
     '/red',
-    proxy({
+    createProxyMiddleware({
       target: 'http://localhost:3001',
       changeOrigin: true,
     })

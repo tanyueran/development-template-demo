@@ -56,7 +56,7 @@ request.interceptors.response.use(
       message.error(data.msg || '本次请求后台出错了')
     }
     // 对响应数据做点什么
-    return Promise.resolve(data.obj);
+    return Promise.resolve(data.data);
 
   }, (error) => {
     // 超时的处理

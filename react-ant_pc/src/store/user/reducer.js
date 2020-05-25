@@ -5,29 +5,36 @@
  */
 import Storage from '../../utils/storage.js'
 
+// 设置登录信息
 export const SET_USER = 'SET_USER';
 export const DEl_USER = 'DEl_USER';
+// 设置是否正在登录
+export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
+
 
 // 初始化值
 let defaultValue = {
-  id: null,
-  username: null,
-  isLogin: false,
-  token: '',
+  loading: false,
+  loginErr: '',
+  userInfo: {
+    id: null,
+    username: null,
+    isLogin: false,
+    token: '',
+  },
 };
 
 // 从缓存中取
 let val = Storage.get('userInfo');
 if (val !== null) {
-  defaultValue = val;
+  defaultValue.userInfo = val;
 }
-
 
 export function userReducer(state = defaultValue, action) {
   switch (action.type) {
     case SET_USER:
-      let obj1 = Object.assign({}, state, action.value);
-      Storage.set('userInfo', obj1);
+      let obj1 = Object.assign({}, state, {userInfo: action.value});
+      Storage.set('userInfo', action.value);
       return obj1;
 
     case DEl_USER:
@@ -35,7 +42,12 @@ export function userReducer(state = defaultValue, action) {
       Storage.remove('userInfo');
       return obj2;
 
+    case SET_LOGIN_STATUS:
+      let obj = Object.assign({}, state, action.value);
+      return obj;
+
     default:
       return state;
   }
 }
+

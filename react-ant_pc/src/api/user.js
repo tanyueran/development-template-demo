@@ -1,26 +1,18 @@
 /**
  * @author tanxin
  * @date $
- * @Description:
+ * @Description: 用户模拟的api请求
  */
 import request from '../utils/request.js';
 
 const api = {
-  getPrimaryKey: '/red/common/id',
-  login: 'sd',
+  login: '/api/login',
   register: '/red/user/add',
   sendRedPacket: '/red/redpacket/send',
   gainRedPacket: '/red/redpacket/gain',
   getRedPacketDetailForGainInfo: '/red/redpacket/get'
 };
 
-// 获取id
-export async function getPrimaryKey(num) {
-  return request({
-    method: 'get',
-    url: api.getPrimaryKey + '/' + num,
-  });
-}
 
 // 注册用户
 export async function register(data) {

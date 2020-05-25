@@ -5,7 +5,8 @@
  */
 import React from 'react';
 import {withRouter} from 'react-router-dom'
-import {Menu, Icon} from "antd";
+import {Menu} from "antd";
+import {UserOutlined} from '@ant-design/icons'
 
 
 class MNav extends React.Component {
@@ -16,15 +17,15 @@ class MNav extends React.Component {
   render() {
     return <Menu onClick={this.clickHandler} selectedKeys={this.props.location.pathname}>
       <Menu.Item key="/home/page1">
-        <Icon type="user"/>
+        <UserOutlined/>
         <span>page 1</span>
       </Menu.Item>
       <Menu.Item key="/home/page2">
-        <Icon type="video-camera"/>
+        <UserOutlined/>
         <span>page 2</span>
       </Menu.Item>
       <Menu.Item key="/home/page3">
-        <Icon type="upload"/>
+        <UserOutlined/>
         <span>page 3</span>
       </Menu.Item>
     </Menu>

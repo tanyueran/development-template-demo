@@ -9,9 +9,19 @@
 5. ant-ui
 
 ## 说明
-基于react-create-app，然后使用react-app-rewired、customize-cra复写配置；
+基于react-create-app，然后使用craco复写配置；
 使用http-proxy-middleware，作为开发的api代理。
 
 ---
 
 这个项目仅仅做模板使用，并不完整，使用时需要继续开发
+
+
+## 项目规划内容
+```text
+1、登录注册
+2、消息通知
+3、博客发布
+4、博客讨论
+
+```

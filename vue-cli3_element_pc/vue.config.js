@@ -5,7 +5,7 @@
  */
 module.exports = {
   lintOnSave: false,
-  publicPath: 'http://localhost/dist/',
+  publicPath: './',
 
   productionSourceMap: true,
 
@@ -20,7 +20,7 @@ module.exports = {
   // 开发的代理
   devServer: {
     disableHostCheck: true,
-	port:'3002',
+    port: '3002',
     proxy: {
       '/api': { //替换代理地址名称
         target: 'http://localhost:3002/',
