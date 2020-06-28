@@ -17,6 +17,11 @@ import {
   Menu,
   MenuItem,
   Submenu,
+  Header,
+  Aside,
+  Container,
+  Main,
+  Footer,
   MenuItemGroup,
 } from 'element-ui'
 
@@ -31,6 +36,11 @@ Vue.use(DropdownMenu);
 Vue.use(Menu);
 Vue.use(MenuItem);
 Vue.use(Submenu);
+Vue.use(Header);
+Vue.use(Aside);
+Vue.use(Container);
+Vue.use(Main);
+Vue.use(Footer);
 Vue.use(MenuItemGroup);
 
 // 设置全局默认

@@ -16,6 +16,8 @@ const cacheList = ['page1', 'page2', 'page3'];
 
 const state = {
   isLogin: false,
+  // 导航是否开启的
+  navState: true,
   token: '',
   // 需要缓存的数据
   cacheList: [],
@@ -67,6 +69,10 @@ const mutations = {
   set_userInfo(state, val) {
     window.sessionStorage.setItem('userInfo', JSON.stringify(val));
     Vue.set(state, 'userInfo', JSON.stringify(val));
+  },
+  // 设置导航的开闭
+  set_nav_state(state, val) {
+    Vue.set(state, "navState", val);
   },
   // 退出登录
   destroy() {

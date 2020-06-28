@@ -1,16 +1,20 @@
 <template>
-	<div class="app-box">
-		<m-header class="app-header"></m-header>
-		<section class="app-section clear">
-			<m-nav class="app-nav-box"></m-nav>
-			<div class="app-container">
-				<keep-alive :include="include">
-					<router-view/>
-				</keep-alive>
-			</div>
-		</section>
-		<m-footer class="app-footer"></m-footer>
-	</div>
+	<el-container class="app-box">
+		<m-nav class="app-nav-box"></m-nav>
+		<el-container>
+			<m-header/>
+			<el-main>
+				<transition name="fade-transform" mode="out-in">
+					<keep-alive :include="include">
+						<router-view/>
+					</keep-alive>
+				</transition>
+			</el-main>
+			<el-footer>
+				<m-footer/>
+			</el-footer>
+		</el-container>
+	</el-container>
 </template>
 
 <script>
@@ -29,13 +33,15 @@
       // 需要缓存的页面
       include() {
         return this.$store.state.cacheList;
+      },
+      isOpen() {
+        return this.$store.state.navState;
       }
     },
     data() {
       return {}
     },
     created() {
-      console.log("23423423")
       this.$store.dispatch("getUserInfo");
     }
   }
@@ -46,41 +52,6 @@
 		height: 100%;
 		position: relative;
 		overflow: hidden;
-
-		.app-header, .app-header {
-			position: absolute;
-			left: 0;
-			right: 0;
-			z-index: 100;
-		}
-
-		.header {
-			top: 0;
-		}
-
-		.footer {
-			bottom: 0;
-		}
-
-		> .app-section {
-			height: 100%;
-			overflow: hidden;
-			padding-top: $header-height;
-			padding-bottom: $footer-height;
-
-			> .app-nav-box {
-				float: left;
-				width: 18%;
-				height: 100%;
-				overflow-y: auto;
-			}
-
-			> .app-container {
-				height: 100%;
-				overflow-y: auto;
-				margin-left: 18%;
-				padding: 10px;
-			}
-		}
 	}
+
 </style>

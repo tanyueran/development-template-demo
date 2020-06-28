@@ -1,7 +1,7 @@
 <template>
-  <div class="footer_wrapper text-center">
-    {{txt}}
-  </div>
+	<div class="footer_wrapper text-center">
+		{{txt}}
+	</div>
 </template>
 
 <script>
@@ -31,11 +31,9 @@
 </script>
 
 <style scoped lang="scss">
-  .footer_wrapper {
-    height: $footer-height;
-    line-height: $footer-height;
-    text-align: center;
-    border: 1px solid #efefef;
-    background-color: #fff;
-  }
+	.footer_wrapper {
+		height: $footer-height;
+		line-height: $footer-height;
+		text-align: center;
+	}
 </style>
