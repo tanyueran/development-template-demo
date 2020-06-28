@@ -4,8 +4,8 @@
  * @Description: 再次封装axios库
  */
 import axios from 'axios';
-import router from '../../router/index.js';
-import store from '../../store/index';
+import router from '../router/index.js';
+import store from '../store';
 //引入消息提示组件
 import {Message} from 'element-ui';
 
@@ -59,9 +59,9 @@ _AXIOS.interceptors.response.use(
         type: 'error',
         message: data.msg || '本次请求后台出错了'
       });
+      return Promise.reject(data);
     }
-    // 对响应数据做点什么
-    return Promise.resolve(data);
+    return Promise.resolve(data.data);
 
   }, (error) => {
     // 超时的处理

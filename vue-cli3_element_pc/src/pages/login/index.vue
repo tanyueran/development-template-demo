@@ -1,29 +1,37 @@
 <template>
-  <div class="wrapper">
-    <div class="login-box">
-      <h1 class="text-center">登录</h1>
-      <el-form ref="form"
-               :rules="form"
-               :model="userInfo"
-               label-width="80px">
-        <el-form-item style="color:#fff;" label="账号" prop="username">
-          <el-input v-model="userInfo.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="userInfo.password"></el-input>
-        </el-form-item>
-      </el-form>
-      <footer class="text-center">
-        <el-button type="primary" @click="loginHandler">登录</el-button>
-        <el-button @click="$refs.form.resetFields()">重置</el-button>
-      </footer>
-    </div>
-  </div>
+	<div class="wrapper">
+		<div class="login-box">
+			<h1>欢迎您，登录系统</h1>
+			<div class="login-form">
+				<p>
+					<label>
+						<span>账号：</span>
+						<input v-model="userInfo.username" type="text" placeholder="请输入账号">
+					</label>
+				</p>
+				<p>
+					<label>
+						<span>密码：</span>
+						<input v-model="userInfo.password" type="password" placeholder="请输入密码">
+					</label>
+				</p>
+				<p class="text-center">
+					<el-button :loading="loading" type="primary" @click="loginHandler">登录</el-button>
+					<el-button @click="$refs.form.resetFields()">重置</el-button>
+				</p>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
+  /**
+   * 登录页面
+   */
+  import {login} from "../../api/user";
+
   export default {
-    name: 'login',
+    name: 'loginPage',
     data() {
       return {
         // 用户信息
@@ -31,6 +39,7 @@
           username: 'admin',
           password: 'password',
         },
+        loading: false,
         // 验证
         form: {
           username: [
@@ -47,34 +56,30 @@
       * 登录事件监听
       * */
       loginHandler() {
-        this.$refs.form.validate((result) => {
-          if (result) {
-            this.login(this.userInfo);
-          }
-        });
+        if (this.userInfo.username && this.userInfo.password) {
+          this.login({
+            ...this.userInfo,
+          })
+        } else {
+          this.$message.error("账号密码不可为空")
+        }
       },
 
       /*
       * 登录
       * */
       login(obj) {
-        this.$axios({
-          url: this.$api.login.login,
-          method: 'post',
-          data: obj,
-        }).then((data) => {
-          if (data.code === 100) {
-            this.$store.commit('set_isLogin', true);
-            this.$store.commit('set_userInfo', data.data);
-            this.$router.replace({name: 'home'});
-          } else {
-            this.$message({
-              type: 'error',
-              message: data.msg,
-            });
-          }
+        this.loading = true;
+        login(obj).then((data) => {
+          this.$store.commit('set_isLogin', true);
+          this.$store.commit('set_token', data);
+          // 请求用户信息
+          this.$store.dispatch("getUserInfo");
+          this.$router.replace("/");
         }).catch((err) => {
           console.log(err);
+        }).finally(() => {
+          this.loading = false;
         });
       }
     }
@@ -82,31 +87,59 @@
 </script>
 
 <style scoped lang="scss">
-  .wrapper {
-    height: 100%;
-    overflow-y: hidden;
-    position: relative;
-    background-image: url("../../assets/images/login-bg.jpg");
-    background-size: cover;
+	.wrapper {
+		height: 100%;
+		overflow-y: hidden;
+		position: relative;
+		background-image: url("../../assets/images/login-bg.jpg");
+		background-size: cover;
 
-    h1 {
-      margin: 1em 0;
-    }
+		h1 {
+			margin: 1em 0;
+		}
 
-    > .login-box {
-      position: absolute;
-      width: 460px;
-      top: 50%;
-      left: 50%;
-      border: 1px solid #efefef;
-      padding: 50px 100px;
-      transform: translate(-50%, -50%);
-      background-color: rgba(33, 33, 33, .2);
-      border-radius: 10px;
+		> .login-box {
+			position: absolute;
+			width: 400px;
+			top: 50%;
+			left: 50%;
+			border: 1px solid #efefef;
+			padding: 50px 40px;
+			transform: translate(-50%, -50%);
+			background-color: rgba(244, 244, 244, .2);
+			border-radius: 10px;
 
-      p {
-        margin-bottom: 10px;
-      }
-    }
-  }
+			p {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	.login-form {
+		> p {
+			margin-bottom: 18px;
+
+			label {
+				display: flex;
+				align-items: center;
+
+				span {
+					width: 3em;
+					color: #efefef;
+				}
+
+				input {
+					flex: 1;
+					height: 35px;
+					border: 1px solid #eee;
+					padding-left: 1em;
+					background: #fff;
+
+					&:focus {
+						border-color: #409EFF;
+					}
+				}
+			}
+		}
+	}
 </style>

@@ -26,9 +26,11 @@ module.exports = {
         target: 'http://localhost:3002/',
         changeOrigin: true, //可否跨域
         pathRewrite: {
-          '^/api': '/services', //重写接口
+          '^/api': '', //重写接口
         },
       },
     },
+    // 开启mock server数据,process.argv的第四个参数mock 表明是否为mock版本的
+    before: process.argv[3] && require('./mock/index.js')
   },
 };

@@ -1,4 +1,7 @@
-# react的pc端项目
+# ~~react的pc端项目~~
+
+> ***[此模板太老旧了，请移步auth_system_demo中的前端项目]***
+
 > 使用yarn打包
 
 ## 使用的主要依赖

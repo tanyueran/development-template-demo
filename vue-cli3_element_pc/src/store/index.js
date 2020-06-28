@@ -5,15 +5,18 @@
  **/
 import Vue from 'vue';
 import vuex from 'vuex';
+import {getUserInfo} from "../api/user";
 
 import module1 from './module1/index.js'
 
 Vue.use(vuex);
+
 // 需要缓存的页面组件
 const cacheList = ['page1', 'page2', 'page3'];
 
 const state = {
   isLogin: false,
+  token: '',
   // 需要缓存的数据
   cacheList: [],
   // 用户信息
@@ -35,17 +38,24 @@ const mutations = {
     // 是否登录
     const loginState = window.sessionStorage.getItem('isLogin');
     let isLogin = (loginState === '8888' ? true : loginState === '0' ? false : false);
-    console.log('init');
     if (isLogin === true) { //用户已经登录
       Vue.set(state, 'isLogin', true);
       // 用户信息
-      Vue.set(state, 'userInfo', JSON.parse(window.sessionStorage.getItem('userInfo')));
+      Vue.set(state, 'userInfo', JSON.parse(window.sessionStorage.getItem('userInfo')) || {});
       // 设置缓存页面
       Vue.set(state, 'cacheList', [...cacheList]);
+      // token
+      Vue.set(state, "token", window.sessionStorage.getItem("token"));
+
     } else {
       Vue.set(state, 'isLogin', false);
+      Vue.set(state, "token", "");
       Vue.set(state, 'userInfo', {});
     }
+  },
+  set_token(state, val) {
+    window.sessionStorage.setItem("token", val);
+    Vue.set(state, 'token', val);
   },
   set_isLogin(state, val) {
     window.sessionStorage.setItem('isLogin', '8888');
@@ -62,13 +72,30 @@ const mutations = {
   destroy() {
     window.sessionStorage.removeItem('userInfo');
     window.sessionStorage.removeItem('isLogin');
+    window.sessionStorage.removeItem('token');
     Vue.set(state, 'userInfo', {});
     Vue.set(state, 'isLogin', false);
+    Vue.set(state, 'token', "");
     Vue.set(state, 'cacheList', []);
   },
 };
 
-const actions = {};
+const actions = {
+  /**
+   * 请求用户信息
+   * @param commit
+   */
+  getUserInfo({state, commit}) {
+    if (JSON.stringify(state.userInfo) !== '{}') {
+      return;
+    }
+    getUserInfo().then(data => {
+      commit("set_userInfo", data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+};
 
 export default new vuex.Store({
   state,

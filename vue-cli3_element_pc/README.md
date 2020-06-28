@@ -11,7 +11,8 @@ yarn install
 
 ### 项目开发
 ```
-yarn run serve
+yarn run serve 没有mock数据版本
+yarn run serve-mock 有mock数据版本
 ```
 ---
 

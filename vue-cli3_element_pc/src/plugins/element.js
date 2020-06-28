@@ -1,7 +1,7 @@
 /**
  * @author tanxin
  * @date 2019/10/15
- * @desc element-ui的组件引入
+ * @desc element-ui的组件按需引入
  **/
 import Vue from 'vue'
 import {
