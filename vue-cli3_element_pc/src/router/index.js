@@ -20,10 +20,6 @@ vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      redirect: '/home'
-    },
     // 登录
     {
       path: '/login',
@@ -36,12 +32,13 @@ const router = new VueRouter({
     },
     // 主页
     {
-      path: '/home',
-      component: () => import('../pages/index.vue'),
+      path: '/',
+      redirect: '/home',
+      component: () => import('../layout/index.vue'),
       children: [
         // 欢迎页
         {
-          path: '',
+          path: 'home',
           name: 'home',
           component: () => import('../pages/home/home.vue'),
           meta: {
@@ -83,6 +80,15 @@ const router = new VueRouter({
           meta: {
             needLogin: false,
             title: '404',
+          }
+        },
+        // 401
+        {
+          path: '/home/401',
+          component: () => import('../pages/noAuth.vue'),
+          meta: {
+            needLogin: false,
+            title: '401',
           }
         },
         // 监听404页面

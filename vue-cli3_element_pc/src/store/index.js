@@ -23,6 +23,8 @@ const state = {
   cacheList: [],
   // 用户信息
   userInfo: {},
+  // 保存本次打开的历史记录
+  navList: [],
 };
 
 const getters = {
@@ -48,6 +50,8 @@ const mutations = {
       Vue.set(state, 'cacheList', [...cacheList]);
       // token
       Vue.set(state, "token", window.sessionStorage.getItem("token"));
+      // 历史记录
+      Vue.set(state, "navList", JSON.parse(window.sessionStorage.getItem("navList") || "[]"));
 
     } else {
       Vue.set(state, 'isLogin', false);
@@ -68,21 +72,28 @@ const mutations = {
   // 用户信息
   set_userInfo(state, val) {
     window.sessionStorage.setItem('userInfo', JSON.stringify(val));
-    Vue.set(state, 'userInfo', JSON.stringify(val));
+    Vue.set(state, 'userInfo', val);
   },
   // 设置导航的开闭
   set_nav_state(state, val) {
     Vue.set(state, "navState", val);
+  },
+  // 设置历史记录
+  set_nav_list(state, val) {
+    window.sessionStorage.setItem("navList", JSON.stringify(val));
+    Vue.set(state, "navList", val);
   },
   // 退出登录
   destroy() {
     window.sessionStorage.removeItem('userInfo');
     window.sessionStorage.removeItem('isLogin');
     window.sessionStorage.removeItem('token');
+    window.sessionStorage.removeItem('navList');
     Vue.set(state, 'userInfo', {});
     Vue.set(state, 'isLogin', false);
     Vue.set(state, 'token', "");
     Vue.set(state, 'cacheList', []);
+    Vue.set(state, 'navList', []);
   },
 };
 

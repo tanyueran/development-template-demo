@@ -1,23 +1,18 @@
 <template>
 	<div class="wrapper">
 		<div class="login-box">
-			<h1>欢迎您，登录系统</h1>
+			<h1 class="text-center">欢迎您，登录系统</h1>
 			<div class="login-form">
 				<p>
-					<label>
-						<span>账号：</span>
-						<input v-model="userInfo.username" type="text" placeholder="请输入账号">
-					</label>
+					<span class="icon el-icon-user"></span>
+					<input v-model="userInfo.username" type="text" placeholder="请输入账号">
 				</p>
 				<p>
-					<label>
-						<span>密码：</span>
-						<input v-model="userInfo.password" type="password" placeholder="请输入密码">
-					</label>
+					<span class="icon el-icon-lock"></span>
+					<input v-model="userInfo.password" type="password" placeholder="请输入密码">
 				</p>
 				<p class="text-center">
-					<el-button :loading="loading" type="primary" @click="loginHandler">登录</el-button>
-					<el-button @click="$refs.form.resetFields()">重置</el-button>
+					<el-button style="width: 100%" :loading="loading" type="primary" @click="loginHandler">登录</el-button>
 				</p>
 			</div>
 		</div>
@@ -94,22 +89,15 @@
 		background-image: url("../../assets/images/login-bg.jpg");
 		background-size: cover;
 
-		h1 {
-			margin: 1em 0;
-		}
-
 		> .login-box {
 			position: absolute;
-			width: 400px;
+			width: 300px;
 			top: 50%;
 			left: 50%;
 			border: 1px solid #efefef;
-			padding: 50px 40px;
 			transform: translate(-50%, -50%);
-			background-color: rgba(244, 244, 244, .2);
-			border-radius: 10px;
 
-			p {
+			h1 {
 				margin-bottom: 10px;
 			}
 		}
@@ -117,27 +105,27 @@
 
 	.login-form {
 		> p {
-			margin-bottom: 18px;
+			position: relative;
+			margin-bottom: 10px;
 
-			label {
-				display: flex;
-				align-items: center;
+			.icon {
+				font-size: 22px;
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				transform: translate(0, -50%);
+			}
 
-				span {
-					width: 3em;
-					color: #efefef;
-				}
+			input {
+				flex: 1;
+				width: 100%;
+				height: 35px;
+				border: 1px solid #eee;
+				padding-left: 3em;
+				background: #fff;
 
-				input {
-					flex: 1;
-					height: 35px;
-					border: 1px solid #eee;
-					padding-left: 1em;
-					background: #fff;
-
-					&:focus {
-						border-color: #409EFF;
-					}
+				&:focus {
+					border-color: #409EFF;
 				}
 			}
 		}

@@ -11,9 +11,9 @@
       return {
         txt: '',
         textMap: {
-          morning: '《-。。-》清晨和阳光、代码最配呀~~',
-          afternoon: '可以来个下午茶《-。。-》',
-          night: '~~@夜深了，快休息吧！',
+          morning: '清晨的阳光和代码最搭了！',
+          afternoon: '可以来个下午茶！',
+          night: '夜深了，快休息吧！',
         },
       }
     },

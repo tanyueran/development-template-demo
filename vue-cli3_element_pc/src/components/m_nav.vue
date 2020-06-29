@@ -1,5 +1,5 @@
 <template>
-	<el-aside class="nav-box" :width="[isClose?'200px':'64px']">
+	<el-aside class="nav-box" :width="isClose?'200px':'64px'">
 		<div class="logo-wrapper">
 			<img src="../assets/images/logo.png" alt="logo"/>
 			<span :class="[!isClose?'hidden':'']">
@@ -18,18 +18,6 @@
 					<i class="el-icon-location"></i>
 					<span>导航一</span>
 				</template>
-				<el-menu-item-group>
-					<template slot="title">分组一</template>
-					<el-menu-item index="/home/page1">页面1</el-menu-item>
-					<el-menu-item index="/home/page2">页面2</el-menu-item>
-					<el-menu-item index="/home/page3">页面3</el-menu-item>
-				</el-menu-item-group>
-				<el-menu-item-group>
-					<template slot="title">分组一</template>
-					<el-menu-item index="/home/page1">页面1</el-menu-item>
-					<el-menu-item index="/home/page2">页面2</el-menu-item>
-					<el-menu-item index="/home/page3">页面3</el-menu-item>
-				</el-menu-item-group>
 				<el-menu-item-group>
 					<template slot="title">分组一</template>
 					<el-menu-item index="/home/page1">页面1</el-menu-item>

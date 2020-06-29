@@ -22,7 +22,11 @@ import {
   Container,
   Main,
   Footer,
+  Link,
+  Breadcrumb,
+  BreadcrumbItem,
   MenuItemGroup,
+  Scrollbar,
 } from 'element-ui'
 
 Vue.use(Button);
@@ -41,6 +45,10 @@ Vue.use(Aside);
 Vue.use(Container);
 Vue.use(Main);
 Vue.use(Footer);
+Vue.use(Link);
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
+Vue.use(Scrollbar);
 Vue.use(MenuItemGroup);
 
 // 设置全局默认

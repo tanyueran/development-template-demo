@@ -6,10 +6,10 @@
 
 <script>
   /**
-	 * 404,页面
+   * 401页面
    */
   export default {
-    name: 'notFoundPage',
+    name: 'noAuthPage',
     methods: {
       goHomeHandler() {
         this.$router.replace("/");
@@ -21,6 +21,6 @@
 <style scoped lang="scss">
 	.not-found-box {
 		height: 100%;
-		background: url("../assets/images/404.jpg") center center no-repeat;
+		background: url("../assets/images/401.jpg") center center no-repeat;
 	}
 </style>
