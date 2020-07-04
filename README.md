@@ -2,7 +2,7 @@
 
 ## 介绍
 
-记录常用的框架demo，用于之后下载后快速搭建项目，避免一些不必要的造轮子。
+记录常用的框架demo，需要查找必要的配置的东西
 
 ## 使用
 
@@ -22,14 +22,12 @@
 
    基于vue-cli3的脚手架开发，及使用滴滴的cube-ui 的移动端项目
 
-4. vue-cli3_element_pc
+4. ~~vue-cli3_element_pc~~（需要类似的查看auth_system_demo库中的前端vue版）
 
    基于vue-clie的脚手架开发，及饿了么的element-ui的pc 端项目
 
-5. react-ant-pc
+5. ~~react-ant-pc~~（需要类似的查看auth_system_demo库中的前端react版）
 
    使用react、redux、react-redux、react-router框架，及ant-ui开发的pc端
 
 
-
-``说明:模板项目1、2、5是基于笔者的个人项目的一个整体，前后端分离，PC、移动端分离的``

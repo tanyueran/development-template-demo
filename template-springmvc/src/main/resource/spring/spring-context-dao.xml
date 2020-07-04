@@ -58,7 +58,7 @@
     <tx:annotation-driven transaction-manager="transitionManage"/>
 
     <!--配置redis-->
-    <!--redis的基本信息配置-->
+    <!--redis的基本信息配置，属性使用默认的-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
 
     <!--连接工厂-->
