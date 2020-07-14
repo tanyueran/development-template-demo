@@ -51,6 +51,7 @@
     border-top: 1px solid #efefef;
     display: flex;
     height: $footer-height;
+    align-items: center;
 
     > li {
       cursor: pointer;
@@ -64,11 +65,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: px2rem(16);
+      font-size: px2rem(14);
       color: #909090;
-
-      > span {
-        margin-bottom: px2rem(4);
+      height: 100%;
+      span{
+        font-size: px2rem(18);
       }
 
       &.active {

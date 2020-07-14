@@ -11,7 +11,7 @@ import {Toast} from 'cube-ui';
 /*
 * 解决路由跳转时出现的错误
 * */
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 };
@@ -27,10 +27,6 @@ const toastInstance = Toast.$create({
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      redirect: '/home'
-    },
     // 登录
     {
       path: '/login',
@@ -53,12 +49,13 @@ const router = new VueRouter({
     },
     // 主页
     {
-      path: '/home',
-      component: () => import('../pages/index.vue'),
+      path: '/',
+      redirect: 'home',
+      component: () => import('../layout/index.vue'),
       children: [
         // 欢迎页
         {
-          path: '',
+          path: '/home',
           name: 'home',
           component: () => import('../pages/home/home.vue'),
           meta: {

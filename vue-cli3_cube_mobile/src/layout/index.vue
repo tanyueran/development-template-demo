@@ -11,8 +11,8 @@
 </template>
 
 <script>
-  import mHeader from '../common/compons/m_header.vue'
-  import mNav from '../common/compons/m_nav.vue'
+  import mHeader from '../components/m_header.vue'
+  import mNav from '../components/m_nav.vue'
 
   export default {
     name: 'home',

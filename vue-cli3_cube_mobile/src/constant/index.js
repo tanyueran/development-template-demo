@@ -3,6 +3,5 @@
  * @date
  * @Description: 存放全局的常量
  */
-const v = {};
-
-export default v;
+// 代理的标识符
+export const PROXY_API = "api";

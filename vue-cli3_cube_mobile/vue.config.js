@@ -3,6 +3,22 @@
  * @date $
  * @Description vue项目的配置
  */
+// 是否为mock模式的
+let obj = process.argv[3] ? {
+  // 开启mock server数据,process.argv的第四个参数mock 表明是否为mock版本的
+  before: require('./mock/index.js')
+} : {
+  proxy: {
+    '^/api': { //替换代理地址名称
+      target: 'http://localhost:3002/auth_system_ssm/',
+      changeOrigin: true, //可否跨域
+      pathRewrite: {
+        '^/api': '', //重写接口
+      },
+    },
+  },
+};
+
 module.exports = {
   lintOnSave: false,// 开发环境每次检测格式
 
@@ -35,14 +51,7 @@ module.exports = {
   // 开发的代理
   devServer: {
     disableHostCheck: true,
-    proxy: {
-      '/wl_mobile_api': { //替换代理地址名称
-        target: 'http://10.19.0.55:8001/',
-        changeOrigin: true, //可否跨域
-        pathRewrite: {
-          '^/wl_mobile_api': '/services', //重写接口
-        },
-      },
-    },
+    port: '3000',
+    ...obj,
   },
 };

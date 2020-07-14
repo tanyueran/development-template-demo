@@ -1,0 +1,287 @@
+module.exports = {
+  // 登录
+  'POST /api/login': {
+    "code": 200,
+    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfTUFOQUdFUlwifSx7XCJhdXRob3JpdHlcIjpcImJ1dHRvbk1hbmFnZXI6QlROX0FERFwifSx7XCJhdXRob3JpdHlcIjpcImJ1dHRvbk1hbmFnZXI6QlROX0RFTFwifSx7XCJhdXRob3JpdHlcIjpcImJ1dHRvbk1hbmFnZXI6QlROX1FVRVJZXCJ9LHtcImF1dGhvcml0eVwiOlwiYnV0dG9uTWFuYWdlcjpCVE5fVVBEQVRFXCJ9LHtcImF1dGhvcml0eVwiOlwibWVudU1hbmFnZXI6QlROX0FERFwifSx7XCJhdXRob3JpdHlcIjpcIm1lbnVNYW5hZ2VyOkJUTl9ERUxcIn0se1wiYXV0aG9yaXR5XCI6XCJtZW51TWFuYWdlcjpCVE5fUVVFUllcIn0se1wiYXV0aG9yaXR5XCI6XCJtZW51TWFuYWdlcjpCVE5fVVBEQVRFXCJ9LHtcImF1dGhvcml0eVwiOlwicm9sZU1hbmFnZXI6QlROX0FERFwifSx7XCJhdXRob3JpdHlcIjpcInJvbGVNYW5hZ2VyOkJUTl9ERUxcIn0se1wiYXV0aG9yaXR5XCI6XCJyb2xlTWFuYWdlcjpCVE5fUVVFUllcIn0se1wiYXV0aG9yaXR5XCI6XCJyb2xlTWFuYWdlcjpCVE5fVVBEQVRFXCJ9LHtcImF1dGhvcml0eVwiOlwidXNlck1hbmFnZXI6QlROX0FERFwifSx7XCJhdXRob3JpdHlcIjpcInVzZXJNYW5hZ2VyOkJUTl9ERUxcIn0se1wiYXV0aG9yaXR5XCI6XCJ1c2VyTWFuYWdlcjpCVE5fUVVFUllcIn0se1wiYXV0aG9yaXR5XCI6XCJ1c2VyTWFuYWdlcjpCVE5fVVBEQVRFXCJ9XSIsImlzcyI6InN5c191c2VyIiwiZXhwIjoxNTk0MzQ3MzYzLCJ1c2VyQ29kZSI6Im1hbmFnZXIifQ.GdeKLQiBMvMdlm1Xcueee6va9xuJHxpi-oIyyh5V7yRsIqSrn4ilyJjqFt2trAcJTHGzBTaJP8NPXX7X4CFViDv8watL4O0uFPhbYCDq4I2FjDzCkh0W5032xO4T886JKDWqveuHVFljwjMW7ICGY_jyrarSNRC3CjdEsiGVglwUXv03lJzv6RxkRyp1sLEcCXa7TL4pq6StXQ917-1U60scGL2Xyp0pXQqeL1IwMTcAcn3fPZbmzWIRTgVYkMAz3DOmMlgbkokYJLiXTp1lypERTbsvb_y7-IOLpa_nnOmpJJz0wYACpJm9xK0CHNfSBQ5k0z49i3n39EXwI2RAGfmW3Q-NZJQdohBYnMNUcLhuyhhD-xTQpcfdO0PfcWCArYbX2hE2gDbbKXRwTRGkO8kA4uSYWCr8mmUcLK_NMhZcCOlL5BJEilrTLLtVwy_ZbZdt5sU3dtJwRYnp9owGDyjGU35jglql3QySh-CZnWgNJyBBcxCtWgzBEvXHFp6SHKCHqLtPHiQta5DQOlZUo2KPvXu0HCFU9yEb2uyUjs1TvZdhpaEXLZ6cyeSf8FNJQoodQcIqZIP5vi-0hzLJ6a_0jkpopqCib-ZyDdRoOT7NGN2N0VaZOAj4ypcnyLhW7Tj3iIfwngr60h8t2p2Fl0cPYSQabNZ8lJsavm969Ao",
+    "msg": "登录成功"
+  },
+  // 获取用户信息
+  'GET /api/user/getUserInfo': {
+    "code": 200,
+    "data": {
+      "active": "1",
+      "createTime": "2020-06-22 16:11:55",
+      "desc": "管理员",
+      "fileId": "",
+      "id": "2",
+      "password": "",
+      "roles": [{
+        "createTime": "2020-06-22 16:13:02",
+        "id": "2",
+        "menus": [],
+        "remark": "普通管理员",
+        "roleCode": "",
+        "roleName": "普通管理员",
+        "updateTime": "2020-06-22 16:13:21"
+      }],
+      "sex": 2,
+      "updateTime": "2020-07-02 11:30:16",
+      "userCode": "manager",
+      "userName": "普通管理员"
+    },
+    "msg": "ok"
+  },
+  // 获取菜单
+  'POST /api/menu/levelMenu/roleIds': {
+    code: 200,
+    data: [
+      {
+        "children": [
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "13",
+            "menuCode": "customerLinkerManager",
+            "menuIcon": "myiconziyuanjiaoseguanli",
+            "menuName": "客商联系人管理",
+            "menuType": "1",
+            "menuUrl": "/home/customer_manager/customer_linker_manager",
+            "pid": "16",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+          {
+            "createTime": "2020-06-22 16:20:00",
+            "data": "",
+            "id": "14",
+            "menuCode": "apportionPersonForSaler",
+            "menuIcon": "myiconcaidan",
+            "menuName": "为销售人员分配",
+            "menuType": "1",
+            "menuUrl": "/home/customer_manager/apportion_person-for-saler",
+            "pid": "16",
+            "remark": "",
+            "sort": 2,
+            "updateTime": "2020-07-02 10:24:20"
+          },
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "15",
+            "menuCode": "apportionPerson",
+            "menuIcon": "myiconziyuanjiaoseguanli",
+            "menuName": "分配人员",
+            "menuType": "1",
+            "menuUrl": "/home/customer_manager/apportion_person",
+            "pid": "16",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+        ],
+        "createTime": "2020-06-22 16:18:31",
+        "data": "",
+        "id": "16",
+        "menuCode": "customerManager",
+        "menuIcon": "myiconshenjiguanli",
+        "menuName": "客商管理",
+        "menuType": "0",
+        "menuUrl": "/home/customer_manager",
+        "pid": "",
+        "remark": "",
+        "sort": 2,
+        "updateTime": "2020-07-02 10:03:43"
+      },
+      {
+        "children": [
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "9",
+            "menuCode": "clientDevelopment",
+            "menuIcon": "myiconzhuzhanghaoliebiao",
+            "menuName": "客户开发",
+            "menuType": "1",
+            "menuUrl": "/home/client_manager/client_development",
+            "pid": "8",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "11",
+            "menuCode": "myClient",
+            "menuIcon": "myiconziyuanjiaoseguanli",
+            "menuName": "我的客户",
+            "menuType": "1",
+            "menuUrl": "/home/client_manager/my_client",
+            "pid": "8",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+        ],
+        "createTime": "2020-06-22 16:18:31",
+        "data": "",
+        "id": "8",
+        "menuCode": "clientManager",
+        "menuIcon": "myiconrenyuanzuguanli",
+        "menuName": "客户管理",
+        "menuType": "0",
+        "menuUrl": "/home/client_manager",
+        "pid": "",
+        "remark": "",
+        "sort": 2,
+        "updateTime": "2020-07-02 10:03:43"
+      },
+      {
+        "createTime": "2020-06-22 16:18:31",
+        "data": "",
+        "id": "008",
+        "menuCode": "salerManager",
+        "menuIcon": "myiconrenyuanzuguanli",
+        "menuName": "销售人员管理",
+        "menuType": "1",
+        "menuUrl": "/home/saler_manager/index",
+        "pid": "",
+        "remark": "",
+        "sort": 2,
+        "updateTime": "2020-07-02 10:03:43"
+      },
+      {
+        "children": [
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "6",
+            "menuCode": "bargainQuery",
+            "menuIcon": "myiconjiansuo",
+            "menuName": "合同查询",
+            "menuType": "1",
+            "menuUrl": "/home/business_manager/bargain_query",
+            "pid": "5",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+          {
+            "createTime": "2020-06-22 16:20:00",
+            "data": "",
+            "id": "7",
+            "menuCode": "payQuery",
+            "menuIcon": "myiconcaidan",
+            "menuName": "收付款查询",
+            "menuType": "1",
+            "menuUrl": "/home/business_manager/pay_query",
+            "pid": "5",
+            "remark": "",
+            "sort": 2,
+            "updateTime": "2020-07-02 10:24:20"
+          },
+          {
+            "createTime": "2020-06-22 16:20:00",
+            "data": "",
+            "id": "07",
+            "menuCode": "receiveDeliverGoodsQuery",
+            "menuIcon": "myiconcaidan",
+            "menuName": "收发货查询",
+            "menuType": "1",
+            "menuUrl": "/home/business_manager/receive_deliver_goods_query",
+            "pid": "5",
+            "remark": "",
+            "sort": 2,
+            "updateTime": "2020-07-02 10:24:20"
+          },
+          {
+            "createTime": "2020-06-22 16:20:00",
+            "data": "",
+            "id": "7",
+            "menuCode": "getGiveInvoiceQuery",
+            "menuIcon": "myiconcaidan",
+            "menuName": "收开票查询",
+            "menuType": "1",
+            "menuUrl": "/home/business_manager/get_give_invoice_query",
+            "pid": "5",
+            "remark": "",
+            "sort": 2,
+            "updateTime": "2020-07-02 10:24:20"
+          }
+        ],
+        "createTime": "2020-06-22 16:18:31",
+        "data": "",
+        "id": "5",
+        "menuCode": "businessManager",
+        "menuIcon": "myiconpeizhiguanli",
+        "menuName": "业务管理",
+        "menuType": "0",
+        "menuUrl": "/home/business_manager",
+        "pid": "",
+        "remark": "",
+        "sort": 2,
+        "updateTime": "2020-07-02 10:03:43"
+      },
+      {
+        "children": [
+          {
+            "createTime": "2020-06-22 16:18:39",
+            "data": "",
+            "id": "2",
+            "menuCode": "userManager",
+            "menuIcon": "myiconzhuzhanghaoliebiao",
+            "menuName": "用户管理",
+            "menuType": "1",
+            "menuUrl": "/home/system_setting/user_manager",
+            "pid": "1",
+            "remark": "",
+            "sort": 4,
+            "updateTime": "2020-07-02 10:24:16"
+          },
+          {
+            "createTime": "2020-06-22 16:19:36",
+            "data": "",
+            "id": "3",
+            "menuCode": "roleSetting",
+            "menuIcon": "myiconziyuanjiaoseguanli",
+            "menuName": "角色管理",
+            "menuType": "1",
+            "menuUrl": "/home/system_setting/role_setting",
+            "pid": "1",
+            "remark": "",
+            "sort": 3,
+            "updateTime": "2020-07-02 10:24:18"
+          },
+          {
+            "createTime": "2020-06-22 16:20:00",
+            "data": "",
+            "id": "4",
+            "menuCode": "menuSetting",
+            "menuIcon": "myiconcaidan",
+            "menuName": "菜单管理",
+            "menuType": "1",
+            "menuUrl": "/home/system_setting/menu_setting",
+            "pid": "1",
+            "remark": "",
+            "sort": 2,
+            "updateTime": "2020-07-02 10:24:20"
+          }
+        ],
+        "createTime": "2020-06-22 16:18:31",
+        "data": "",
+        "id": "1",
+        "menuCode": "systemSetting",
+        "menuIcon": "myiconpeizhiguanli",
+        "menuName": "系统设置",
+        "menuType": "0",
+        "menuUrl": "/home/system_setting",
+        "pid": "",
+        "remark": "",
+        "sort": 1,
+        "updateTime": "2020-07-02 10:03:43"
+      },
+    ],
+    msg: 'ok',
+  }
+};

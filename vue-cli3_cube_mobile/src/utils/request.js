@@ -4,8 +4,8 @@
  * @Description: 再次封装axios库
  */
 import axios from 'axios';
-import router from '../../router/index.js';
-import store from '../../store/index';
+import router from '../router/index.js';
+import store from '../store';
 //引入消息提示组件
 import {Toast} from 'cube-ui';
 
@@ -14,6 +14,19 @@ const _axios = axios.create({
   retry: 3,// 超时重新请求数
   retryDelay: 100,// 超时重新请求延迟时间值
 });
+
+// 提示错误信息
+let showToast = (info) => {
+  let d = Toast.$create({
+    type: 'error',
+    zIndex: 999,
+    time: 1500,
+    txt: info,
+    onTimeout: () => {
+      d.remove();
+    },
+  }).show();
+};
 
 //配置axios
 /*
@@ -39,20 +52,12 @@ _axios.interceptors.response.use(
     /**
      * 判断是否成功
      */
-    if (data.code != '100') {
-      let d = Toast.$create({
-        type: 'error',
-        zIndex: 999,
-        time: 1500,
-        txt: data.msg || '请求出错',
-        onTimeout: () => {
-          d.remove();
-        },
-      })
-        .show();
+    if (data.code !== 200) {
+      showToast(data.msg || '请求出错');
+      return Promise.reject(data.msg);
     }
     // 对响应数据做点什么
-    return Promise.resolve(data);
+    return Promise.resolve(data.data);
 
   }, (error) => {
     // 局部保存config
@@ -63,16 +68,7 @@ _axios.interceptors.response.use(
       // 设置超时数目
       config.__retryCount = config.__retryCount || 0;
       if (config.__retryCount >= config.retry) {
-        let d = Toast.$create({
-          type: 'error',
-          zIndex: 999,
-          time: 1500,
-          txt: '请求超时,请刷新页面重新请求 或 联系管理员',
-          onTimeout: () => {
-            d.remove();
-          },
-        })
-          .show();
+        showToast('请求超时,请刷新页面重新请求 或 联系管理员');
         return Promise.reject(error);
       }
       config.__retryCount += 1;
@@ -86,59 +82,22 @@ _axios.interceptors.response.use(
       switch (error.response.status) {
         //处理后台响应的错误
         case 401:
-          let d1 = Toast.$create({
-            type: 'error',
-            zIndex: 999,
-            time: 1500,
-            txt: '请登录后，再操作',
-            onTimeout: () => {
-              d1.remove();
-            },
-          })
-            .show();
+          showToast('请登录后，再操作');
           router.replace({
             path: '/login'
           });
           return Promise.reject(error);
         case 404:
-          let d2 = Toast.$create({
-            type: 'error',
-            zIndex: 999,
-            time: 1500,
-            txt: '接口不存在，请联系管理员',
-            onTimeout: () => {
-              d2.remove();
-            },
-          })
-            .show();
+          showToast('接口不存在，请联系管理员');
           return Promise.reject(error);
         case 500:
-          let d3 = Toast.$create({
-            type: 'error',
-            zIndex: 999,
-            time: 1500,
-            txt: '服务器出错啦，请求联系管理员',
-            onTimeout: () => {
-              d3.remove();
-            },
-          })
-            .show();
+          showToast('服务器出错啦，请求联系管理员');
           return Promise.reject(error);
         default:
-          let d4 = Toast.$create({
-            type: 'error',
-            zIndex: 999,
-            time: 1500,
-            txt: '未知错误',
-            onTimeout: () => {
-              d4.remove();
-            },
-          })
-            .show();
+          showToast('未知错误');
           return Promise.reject(error);
       }
     }
-    return Promise.reject(error);
   });
 
 export default _axios;
