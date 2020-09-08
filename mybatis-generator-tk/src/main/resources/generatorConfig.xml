@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <!-- targetRuntime="MyBatis3"  MyBatis3Simple : 没有Example-->
+    <context id="testTables" targetRuntime="MyBatis3">
+        <!-- 指定生成的java文件的编码,没有的话直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!--beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，
+        比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+
+        <commentGenerator>
+            <!-- （没把注释修改成中文的时候有效）是否去除自动生成的日期 true：是 ： false:否 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <!--<property name="nullCatalogMeansCurrent" value="true"/>-->
+        </jdbcConnection>
+        <!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+            connectionURL="jdbc:oracle:thin:@localhost:1521:mybatis"
+            userId=""
+            password="">
+        </jdbcConnection> -->
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator
+                targetPackage="com.github.tanyueran.modal"
+                targetProject="./src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject="./src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <javaClientGenerator
+                type="XMLMAPPER"
+                targetPackage="com.github.tanyueran.mapper"
+                targetProject="./src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 指定数据库表 -->
+        <!--
+            tableName:要生成的表名
+                domainObjectName:生成后的实例名
+                enableCountByExample:Count语句中加入where条件查询，默认true开启
+                enableUpdateByExample:Update语句中加入where条件查询，默认true开启
+                enableDeleteByExample:Delete语句中加入where条件查询，默认true开启
+                enableSelectByExample:Select多条语句中加入where条件查询，默认true开启
+                selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认true开启
+         -->
+        <!--
+            常用：
+            property:将所有字段逆向生成为类属性，默认全部
+            ignoreColumn:生成时忽略列字段
+         -->
+        <table tableName="file_tab" domainObjectName="CloudFile"/>
+        <table tableName="food_tab" domainObjectName="CloudFood"/>
+        <table tableName="order_tab" domainObjectName="CloudOrder"/>
+        <table tableName="user_tab" domainObjectName="CloudUser"/>
+    </context>
+</generatorConfiguration>
