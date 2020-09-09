@@ -1,5 +1,6 @@
 package mybatis.generator.plus;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -45,7 +46,6 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("tanxin");
-
         gc.setOpen(false);
         gc.setEntityName("Cloud%s");
         gc.setMapperName("Cloud%sMapper");
@@ -53,6 +53,7 @@ public class CodeGenerator {
         gc.setServiceName("Cloud%sService");
         gc.setServiceImplName("Cloud%sServiceImp");
         gc.setControllerName("Cloud%sController");
+        gc.setIdType(IdType.INPUT);
         gc.setSwagger2(true); //实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
@@ -131,10 +132,11 @@ public class CodeGenerator {
 //        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
+        strategy.setEntityTableFieldAnnotationEnable(true);
         // 公共父类
 //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
-        // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+//         写于父类中的公共字段
+//        strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix("tab_");
